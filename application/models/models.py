@@ -10,12 +10,6 @@ class RoleEnum(Enum):
     doctor = 'doctor'
     admin = 'admin'
 
-class CategoriaEnum(Enum):
-    ascus = 'ascus'
-    altogrado = 'altogrado'
-    bajogrado = 'bajogrado'
-    benigna = 'benigna'
-
 
 class User(db.Model, UserMixin):
     '''
