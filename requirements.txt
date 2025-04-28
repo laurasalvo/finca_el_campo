@@ -1,0 +1,16 @@
+Pillow
+psycopg2-binary
+mysql-connector-python
+flask_bcrypt
+flask_cors
+flask_restful
+flask_sqlalchemy
+flask-migrate
+flask-login
+matplotlib
+gunicorn
+python-dotenv
+opencv-python
+ipykernel
+pdfkit
+#pip install -r requirements.txt
