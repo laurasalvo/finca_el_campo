@@ -7,11 +7,11 @@
     <div class="container-fluid main_body">
         <div class="container-fluid" style="display:flex;flex-direction: column;">
             <video autoplay muted loop id="doctor" style="height:100vh;position: relative;">
-                <source src="{{ url_for('static', filename='video/boda.mp4') }}" type="video/mp4">
+            <source src="{{ url_for('static', filename='video/boda.mp4') }}" type="video/mp4">
         </div>
         <a href="/login" style="text-decoration: none; color:white;position: absolute;left:1000px;top:100px;"> 
             <video autoplay muted loop id="myVideo" style="width:500px;height:500px;z-index:-1;">
-                <source src="{{ url_for('static', filename='video/boda.mp4') }}" type="video/mp4">
+            <source src="{{ url_for('static', filename='video/boda.mp4') }}" type="video/mp4">
         </a>
         <a href="/login" style="text-decoration: none; color:white;position: absolute;left:1000px;top:100px;"> 
             <div id="filter" style="width:505px;height:505px;background: radial-gradient(300px,rgba(0,0,0,0),rgba(0,0,0,128));position: relative;" onmouseenter="document.getElementById('myVideo').style.transform = 'scale(1.25)';document.getElementById('myVideo').style.transition ='transform 0.3s ease-in-out';document.getElementById('text').style.opacity = 1;" onmouseleave="document.getElementById('myVideo').style.transform = 'scale(1)';document.getElementById('myVideo').style.transition ='transform 0.3s ease-in-out';document.getElementById('text').style.opacity = 0;">
