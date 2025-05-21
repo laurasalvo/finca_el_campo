@@ -43,6 +43,13 @@
 
 ```
 >>> cd /D ruta-proyecto
+>>> python -m venv virtual
+>>> cd virtual/Scripts
+>>> activate
+>>> cd ..
+>>> cd ..
+>>> python.exe -m pip install --upgrade pip
+>>> pip install -r requirements.txt
 >>> flask db init
 >>> flask db migrate -m "Initial migration"
 >>> flask db upgrade
