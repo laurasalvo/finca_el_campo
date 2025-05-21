@@ -45,10 +45,6 @@ body{
     --bs-nav-link-hover-color:#fff !important;
 }
 
-#tabla-citologia table td, #tabla-citologia table th{
-    width: 25%;
-}
-
 .nav-item
 {
     padding-right: 15px;
@@ -91,7 +87,8 @@ body{
 }
 
 .content_body {
-    min-height: 100vh; /* Ocupar al menos el alto de la pantalla */
+    /* Ocupar al menos el alto de la pantalla */
+    /*min-height: 100vh;*/
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -110,11 +107,10 @@ body{
     background-attachment: fixed !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
-    background-color: rgb(0,0,30) !important;
+    /*background-color: rgb(0,0,30) !important;*/
 }
 
 .content_body.pacientlist {
-    
     background-image: none;
 }
 

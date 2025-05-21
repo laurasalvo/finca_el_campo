@@ -1,5 +1,5 @@
 {% macro render_especial_carousel(images) %}
-    <div class="scroll-container" style="display:flex;flex-direction:column;justify-content:  flex-end;">
+    <div class="scroll-container" style="display:flex;flex-direction:column;justify-content:  flex-start;">
         <div id="InfiniteScrollWrapper" class="infinite-scroll-wrapper">
             <div id="InfiniteScroll" class="infinite-scroll-content">
                 <div class="infinite-scroll-items">
@@ -27,10 +27,10 @@
                 </div>
             {% endfor %}
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev" title="-">
             <span class="carousel-control-prev-icon"></span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" title="-">
             <span class="carousel-control-next-icon"></span>
         </button>
     </div>
