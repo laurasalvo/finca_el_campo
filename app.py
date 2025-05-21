@@ -8,7 +8,7 @@ from flask_login import login_user
 from werkzeug.utils import secure_filename
 import os
 from boda import create_app
-from boda.models import User
+from boda.models import User, CarouselImage
 from dotenv import load_dotenv
 from enum import Enum
 from sqlalchemy.exc import IntegrityError
@@ -56,6 +56,10 @@ class RoleEnum(Enum):
     administrador = 'administrador'
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 @app.route('/<filename>')
 def download(filename):
     """
@@ -73,7 +77,7 @@ def download(filename):
 def convert_to_pdf(data:str, report_name:str) -> None:
     '''
     Convierte un archivo a PDF
-    RUTA BASE > C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe
+    RUTA BASE > C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe
     https://pypi.org/project/pdfkit/
     '''
     import pdfkit
@@ -161,6 +165,9 @@ def login():
     - POST  : Procesa la autenticación.
     '''
 
+    # -- Selecccionar las imagenes del carrusel que estan activas para uso
+    carousel_images = CarouselImage.query.filter_by(is_active=True).all()
+
     # -- Verificar si el usuario ya está autenticado
     if current_user.is_authenticated:
         if current_user.role.value == RoleEnum.cliente.value:
@@ -169,10 +176,10 @@ def login():
             return redirect(url_for('get_admin_page'))
         else:
             logout_user()
-            return redirect(url_for('login'))
+            return render_template('login.html', carousel_images=carousel_images), 200
         
     if request.method == 'GET':
-        return render_template('login.html'), 200
+        return render_template('login.html', carousel_images=carousel_images), 200
 
     # -- Capturar los datos del formulario
     usermail = request.form.get('usermail')
@@ -201,6 +208,10 @@ def login():
         flash('Correo electrónico o contraseña incorrectos', 'error')
         return redirect(url_for('login'))
     
+@app.route('/contact_us')
+def contactanos():
+    return render_template('contact_us.html')
+
 @app.route('/logout')
 @login_required
 def logout():

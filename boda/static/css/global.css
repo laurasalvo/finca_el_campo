@@ -1,0 +1,155 @@
+
+
+@font-face {
+    font-family: 'CaviarDreams';
+    src: url('../fonts/caviar_dreams/CaviarDreams.ttf') format('opentype');
+}
+
+.art-text {
+    font-family: 'CaviarDreams', sans-serif !important;
+}
+
+body{
+    /*background-color: #053462 !important;*/
+    background-color: white !important;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Great Vibes', cursive;
+}
+
+.navbar-nav{
+    --bs-nav-link-hover-color:#fff !important;
+}
+
+#tabla-citologia table td, #tabla-citologia table th{
+    width: 25%;
+}
+
+.nav-item
+{
+    padding-right: 15px;
+}
+
+.cristal {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.2); 
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.main_body {
+    min-height: 100vh; /* Ocupar al menos el alto de la pantalla */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size:cover !important;
+    background-attachment: fixed !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    /*background-color: black;*/
+    
+}
+
+.main_body #filter {
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.main_body #text {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.main_body #filter:hover {
+    transform: scale(1.25);
+    transition: transform 0.3s ease-in-out;
+}
+
+.content_body {
+    min-height: 100vh; /* Ocupar al menos el alto de la pantalla */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*margin-top:100px;*/
+    align-items: center;
+
+}
+
+.content_body.login {
+    
+    background-image: none;
+}
+
+.content_body:not(.login):not(.pacientlist) {
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-color: rgb(0,0,30) !important;
+}
+
+.content_body.pacientlist {
+    
+    background-image: none;
+}
+
+.app_title{
+    color: white;
+    /*position: fixed;*/
+    top: 0;
+    margin-top: 20px;
+    font-size: 38px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 1s ease;
+}
+
+.app_title:hover{
+    cursor:pointer;
+    text-decoration: none;
+    color: white;
+    transform: scale(0.8);
+}
+
+/* Efecto para miniimagenes*/
+.mini_image {
+    transition: transform 0.2s ease-in-out;
+}
+
+.mini_image:hover {
+    transform: scale(1.05);
+}
+
+/* Truncar direcciones*/
+
+.text-truncate {
+    display: inline-block;
+    max-width: 150px; /* Ajusta según necesidad */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.contact_button{
+    margin-left:0px;
+    margin-right:5px;
+    margin-bottom:5px;
+    padding:0px;
+}
+
+.contact_button:hover{
+    transition: 0.3s ease-in-out !important;
+    border: 2px solid white !important;
+    border-radius: 50px !important;
+    background-color: white !important;
+}
+
+.fondo_flor{
+    background-image: url('../images/fondo_flor.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

@@ -1,26 +1,27 @@
 {% extends 'layout.html' %}
-{% block title %}Finca el Campo{% endblock %}
+{% import 'macros.html' as macros %}
+{% block title %}Finca El Campo{% endblock %}
 {% block content %}
-    <script>
-
-    </script>
     <div class="container-fluid main_body">
         <div class="container-fluid" style="display:flex;flex-direction: column;">
-            <video autoplay muted loop id="doctor" style="height:100vh;position: relative;">
+            <video autoplay muted loop id="doctor" style="width:100%;padding:0px;margin:0px;height:50%">
             <source src="{{ url_for('static', filename='video/boda.mp4') }}" type="video/mp4">
         </div>
         <a href="/login" style="text-decoration: none; color:white;position: absolute;left:1000px;top:100px;"> 
             <video autoplay muted loop id="myVideo" style="width:500px;height:500px;z-index:-1;">
             <source src="{{ url_for('static', filename='video/boda.mp4') }}" type="video/mp4">
         </a>
-        <a href="/login" style="text-decoration: none; color:white;position: absolute;left:1000px;top:100px;"> 
-            <div id="filter" style="width:505px;height:505px;background: radial-gradient(300px,rgba(0,0,0,0),rgba(0,0,0,128));position: relative;" onmouseenter="document.getElementById('myVideo').style.transform = 'scale(1.25)';document.getElementById('myVideo').style.transition ='transform 0.3s ease-in-out';document.getElementById('text').style.opacity = 1;" onmouseleave="document.getElementById('myVideo').style.transform = 'scale(1)';document.getElementById('myVideo').style.transition ='transform 0.3s ease-in-out';document.getElementById('text').style.opacity = 0;">
+        <span style="text-decoration: none; color:white;position: absolute;left:1000px;top:100px;"> 
+            <div class="btn btn-group" style="padding:0px;margin-bottom:4rem">
+                <button type="button" class="btn btn-outline-light btn-lg rounded-0 contact_button" onclick="window.location.href='/contact_us'"><span style="color:black">Contáctanos</span></button>
+                <button type="button" class="btn btn-outline-light btn-lg rounded-0 contact_button" onclick="window.location.href='/about_us'"><span style="color:black">Sobre Nosotros</span></button>
             </div>
-        <div id="text" style="opacity: 0;position: absolute;text-align: center;font-family: Arial, Helvetica, sans-serif;color: white;left:0px;top:500px;font-size: 2em;">
-            <b><span>Bienvenido a la Finca el Campo</span></b>
-            <br>
-            <b><span>Tu boda deseada!</span></b>
-        </div>
-        </a>
+            <div id="filter" style="cursor:pointer;width:505px;height:505px;background: radial-gradient(300px,rgba(0,0,0,0),rgba(0,0,0,128));position: relative;" onclick="window.location.href='/login'" onmouseenter="document.getElementById('myVideo').style.transform = 'scale(1.25)';document.getElementById('myVideo').style.transition ='transform 0.3s ease-in-out';document.getElementById('text').style.opacity = 1;" onmouseleave="document.getElementById('myVideo').style.transform = 'scale(1)';document.getElementById('myVideo').style.transition ='transform 0.3s ease-in-out';document.getElementById('text').style.opacity = 0;"></div>
+            <div id="text" class="art-text" style="opacity: 0;position: absolute;text-align: center;font-family: Arial, Helvetica, sans-serif;color: white;left:0px;top:500px;font-size: 2em;">
+                <b><span>Celebra tu boda y/o eventos de manera única!</span></b>
+            </div>
+        </span>
     </div>
+    
+    {{ macros.footer() }}
 {% endblock %}

@@ -39,3 +39,34 @@ class User(db.Model, UserMixin):
         
         today = date.today()
         return today.year - self.birthday.year
+    
+class CarouselImage(db.Model):
+    '''
+    Imágenes del carrusel
+    '''
+    __tablename__ = 'carousel_images'
+
+    id = db.Column(db.Integer, primary_key=True, comment="ID único de la imagen")
+    image_path = db.Column(db.String(255), nullable=False, comment="Ruta relativa de la imagen (ej: static/images/carrusel/ejemplo.jpg)")
+    description = db.Column(db.String(255), nullable=True, comment="Descripción de la imagen")
+    is_active = db.Column(db.Boolean, default=True, nullable=True, comment="Indica si la imagen está activa para mostrarla")
+
+    def __repr__(self):
+        return f'<CarouselImage id={self.id} path={self.image_path}>'
+    
+class Consulta(db.Model):
+    '''
+    Registro de consultas realizadas por clientes
+    '''
+    __tablename__ = 'consultas'
+
+    id = db.Column(db.Integer, primary_key=True, comment="ID único de la consulta")
+    nombre_cliente = db.Column(db.String(100), nullable=False, comment="Nombre del cliente que realiza la consulta")
+    email = db.Column(db.String(120), nullable=False, comment="Correo electrónico del cliente")
+    telefono = db.Column(db.String(24), nullable=True, comment="Teléfono de contacto")
+    direccion = db.Column(db.String(255), nullable=True, comment="Dirección del cliente")
+    ciudad = db.Column(db.String(100), nullable=True, comment="Ciudad del cliente")
+    fecha_creacion = db.Column(db.DateTime, default=datetime.now(timezone.utc), nullable=False, comment="Fecha y hora en que se registró la consulta")
+
+    def __repr__(self):
+        return f'<Consulta {self.nombre_cliente} - {self.email}>'

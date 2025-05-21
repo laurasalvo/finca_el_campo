@@ -1,0 +1,48 @@
+{% macro render_especial_carousel(images) %}
+    <div class="scroll-container" style="display:flex;flex-direction:column;justify-content:  flex-end;">
+        <div id="InfiniteScrollWrapper" class="infinite-scroll-wrapper">
+            <div id="InfiniteScroll" class="infinite-scroll-content">
+                <div class="infinite-scroll-items">
+                    {% for image in images %}
+                        <div class="item-wrap">
+                            <img src="{{ url_for('static', filename=image.image_path.replace('static/', '')) }}" class="d-block w-100 rounded" alt="{{ image.description }}">
+                            <span class="text">{{ image.description }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro render_image_carousel(images) %}
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for image in images %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <img src="{{ url_for('static', filename=image.image_path.replace('static/', '')) }}" class="d-block w-100" alt="{{ image.description }}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <p>{{ image.description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+{% endmacro %}
+
+{% macro footer() %}
+    <div class="container-fluid" style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 25vh; text-align: justify;background-color:#FAF9F6">
+        <img src="{{ url_for('static', filename='images/banderas.png') }}" style="width: 50rem; display: block; margin-bottom: 1rem;" alt=""/>
+        <p style="max-width: 1300px;">
+            FINCA EL CAMPO EVENTOS Y CELEBRACIONES S.L. ha recibido una ayuda de la Unión Europea con cargo al Programa Operativo FEDER de Andalucía 2014-2020, financiada como 
+            parte de la respuesta de la Unión a la pandemia de COVID-19 (REACT-UE), para compensar el sobrecoste energético de electricidad a pymes y autónomos especialmente afectados por 
+            el incremento de los precios del gas natural y la electricidad provocados por el impacto de la guerra de agresión de Rusia contra Ucrania.
+        </p>
+    </div>
+{% endmacro %}
