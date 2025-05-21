@@ -7,8 +7,8 @@ from flask_restful import Api
 from flask_login import login_user
 from werkzeug.utils import secure_filename
 import os
-from app import create_app
-from app.models import User
+from boda import create_app
+from boda.models import User
 from dotenv import load_dotenv
 from enum import Enum
 from sqlalchemy.exc import IntegrityError

@@ -3,8 +3,8 @@
 
 import os
 from flask import Flask
-from app.models.commons import db
-from app.config import DbManager
+from boda.models.commons import db
+from boda.config import DbManager
 
 def create_app():
     '''
@@ -21,7 +21,7 @@ def create_app():
     app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 100
 
     # -- Carpeta para subida de archivos
-    app.config['UPLOAD_PATH'] = 'app/static/uploads'
+    app.config['UPLOAD_PATH'] = 'boda/static/uploads'
     app.config['TEMPLATES_AUTO_RELOAD'] = True
 
     if not os.path.exists(app.config['UPLOAD_PATH']):
