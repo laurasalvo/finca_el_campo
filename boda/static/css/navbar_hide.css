@@ -1,0 +1,8 @@
+.navbar-scroll-fade {
+    transition: opacity 0.4s ease-in-out;
+}
+
+.navbar-hidden {
+    opacity: 0;
+    pointer-events: none;
+}

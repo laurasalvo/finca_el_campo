@@ -1,4 +1,19 @@
 
+@font-face {
+    font-family: 'Art_Brewery';
+    src: url('../fonts/Art_Brewery/Art_Brewery.ttf') format('opentype');
+}
+
+.title_base {
+    font-family: 'Art_Brewery', sans-serif !important;
+        top: 25%;
+        left: 50%;
+        transform: translate(-35rem, -30%) rotate(-30deg); /* Centro y rotación */
+        transform-origin: center center;
+        position:absolute;
+        color:white;
+        font-size: 96px;
+}
 
 @font-face {
     font-family: 'CaviarDreams';
@@ -152,4 +167,12 @@ body{
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+#myVideo {
+    transition: transform 0.5s ease-in-out; /* transicion suave */
+}
+
+#myVideo:hover {
+    transform: scale(1.1); /* escala ligeramente más suave */
 }

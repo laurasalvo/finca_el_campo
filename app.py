@@ -208,6 +208,10 @@ def login():
         flash('Correo electrónico o contraseña incorrectos', 'error')
         return redirect(url_for('login'))
     
+@app.route('/about_us')
+def sobre_nos():
+    return render_template('about_us.html')
+
 @app.route('/contact_us')
 def contactanos():
     return render_template('contact_us.html')
