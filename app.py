@@ -278,11 +278,11 @@ def reserva():
             return render_template('reservas.html'), 200
 
 @app.route('/aloja')
-def sobre_nos():
+def alojamientos():
     return render_template('alojamientos.html')
 
 @app.route('/events')
-def sobre_nos():
+def eventos():
     return render_template('events.html')
 
 @app.route('/about_us')
