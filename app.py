@@ -279,7 +279,7 @@ def reserva():
 
 @app.route('/fincas')
 def fincas():
-    return render_template('alojamientos.html')
+    return render_template('fincas.html')
 
 @app.route('/aloja')
 def alojamientos():

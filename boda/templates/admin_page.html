@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+{% import 'macros.html' as macros %}
+{% block title %}Contáctanos{% endblock %}
+{% block content %}
+    <div class="container-fluid" style="display:flex;flex-direction: column;">
+        <nav class="navbar navbar-expand-sm" style="top:0;width:100%;z-index: 10;background-color: #FAF9F6;">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" title="...">
+                    <img src="{{ url_for('static', filename='images/logo_full.png') }}" style="margin:3px;width:200px" alt=""/>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <div style="display:flex;flex-direction: row;justify-content: start;">
+                                <a class="nav-link" href="/">
+                                    <video autoplay muted loop id="loginVideo" style="max-width: 150px;border-radius: 10px;">
+                                        <source src="{{ url_for('static', filename='video/boda.mp4') }}" type="video/mp4">
+                                    </video>
+                                </a>
+
+                                <a class="nav-link" href="/" style="font-size:18px">
+                                    <img src="{{ url_for('static', filename='images/logo_full.png') }}" style="margin:3px;width:200px" alt=""/>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid content_body login" style="background-color: #FAF9F6; position: relative;display:flex;flex-direction: row;align-items:flex-start">
+            <div class="container-fluid col-md-1" style="overflow: hidden; background-color: #FAF9F6">
+                <ul style="list-style: none;display: grid; gap: 1rem;margin:0px;padding:0px">
+                    <li class="nav-item">
+                        <a class="nav-link art-text" href="/reservas" style="font-size: .9rem;" data-bs-toggle="tooltip" data-bs-placement="top" title="Reservaciones">Reservaciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link art-text" href="/fincas" style="font-size: .9rem;" data-bs-toggle="tooltip" data-bs-placement="top" title="Finca y Habitaciones">Finca y Habitaciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link art-text" href="/events" style="font-size: .9rem;" data-bs-toggle="tooltip" data-bs-placement="top" title="Eventos">Eventos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link art-text" href="/aloja" style="font-size: .9rem;" data-bs-toggle="tooltip" data-bs-placement="top" title="Alojamientos">Alojamientos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link art-text" href="/contact_us" style="font-size: .9rem;" data-bs-toggle="tooltip" data-bs-placement="top" title="Contáctanos">Contáctanos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link art-text" href="/about_us" style="font-size: .9rem;" data-bs-toggle="tooltip" data-bs-placement="top" title="Sobre Nosotros">Sobre Nosotros</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="container-fluid fondo_flor col-md-11">
+                <h1>ADMIN PAGE</h1>
+            </div>
+        </div>
+    </div>
+    {{ macros.footer() }}
+{% endblock %}
