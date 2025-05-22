@@ -136,20 +136,6 @@ def update_user(uid:int):
 
     return redirect(url_for('get_pacient_page', uid=user.id))
     
-@app.route('/client_page', methods=['POST', 'GET'])
-def get_client_page():
-    '''
-    Control de vista administrativa
-    '''
-    pass
-
-@app.route('/admin_page', methods=['POST', 'GET'])
-def get_admin_page():
-    '''
-    Control de vista administrativa
-    '''
-    pass
-    
 @app.route('/register', methods=['POST', 'GET'])
 def new_account():
     '''
@@ -173,41 +159,121 @@ def login():
         if current_user.role.value == RoleEnum.cliente.value:
             return redirect(url_for('get_client_page'))
         elif current_user.role.value == RoleEnum.administrador.value:
-            return redirect(url_for('get_admin_page'))
+            return redirect(url_for('get_client_page'))
         else:
             logout_user()
             return render_template('login.html', carousel_images=carousel_images), 200
         
     if request.method == 'GET':
         return render_template('login.html', carousel_images=carousel_images), 200
+    else:
+        # -- Capturar los datos del formulario
+        usermail = request.form.get('usermail')
+        password = request.form.get('password')
 
-    # -- Capturar los datos del formulario
-    usermail = request.form.get('usermail')
-    password = request.form.get('password')
+        # -- Buscar al usuario en la base de datos
+        user = User.query.filter_by(usermail=usermail).first()
 
-    # -- Buscar al usuario en la base de datos
-    user = User.query.filter_by(usermail=usermail).first()
+        if user and bcrypt.check_password_hash(user.password_hash, password):
+            # -- Iniciar sesión con Flask-Login
+            login_user(user)
 
-    if user and bcrypt.check_password_hash(user.password_hash, password):
-        # -- Iniciar sesión con Flask-Login
-        login_user(user)
+            flash('Inicio de sesión exitoso', 'success')
+            
+            # -- Redirigir al usuario a la página que intentaba acceder
+            next_page = request.args.get('next')
 
-        flash('Inicio de sesión exitoso', 'success')
-        
-        # -- Redirigir al usuario a la página que intentaba acceder
-        next_page = request.args.get('next')
+            if user.role.value == RoleEnum.cliente.value:
+                return redirect(next_page or url_for('get_client_page'))
+            elif user.role.value == RoleEnum.administrador.value:
+                return redirect(next_page or url_for('get_admin_page'))
+            else:
+                logout_user()
+                return redirect(url_for('login'))
+        else:
+            flash('Correo electrónico o contraseña incorrectos', 'error')
+            return redirect(url_for('login'))
+    
+@app.route('/get_admin_page', methods=['GET', 'POST'])
+@login_required
+def get_admin_page():
+    '''
+    Redireccionar a controles administrativos
+    '''
+    # -- Selecccionar las imagenes del carrusel que estan activas para uso
+    carousel_images = CarouselImage.query.filter_by(is_active=True).all()
 
-        if user.role.value == RoleEnum.cliente.value:
-            return redirect(next_page or url_for('get_client_page'))
-        elif user.role.value == RoleEnum.administrador.value:
-            return redirect(next_page or url_for('get_admin_page'))
+    if request.method == 'GET':
+        return render_template('reservas.html', carousel_images=carousel_images), 200
+    else:
+        # -- Verificar si el usuario ya está autenticado
+        if current_user.is_authenticated:
+            if current_user.role.value == RoleEnum.administrador.value:
+                return render_template('admin_page.html', carousel_images=carousel_images), 200
+            else:
+                logout_user()
+                return render_template('login.html', carousel_images=carousel_images), 200
         else:
             logout_user()
-            return redirect(url_for('login'))
+            return render_template('login.html', carousel_images=carousel_images), 200
+
+
+@app.route('/get_client_page', methods=['GET', 'POST'])
+@login_required
+def get_client_page():
+    '''
+    Mostrar pagina del cliente
+    '''
+    # -- Selecccionar las imagenes del carrusel que estan activas para uso
+    carousel_images = CarouselImage.query.filter_by(is_active=True).all()
+
+    if request.method == 'GET':
+        return render_template('reservas.html', carousel_images=carousel_images), 200
     else:
-        flash('Correo electrónico o contraseña incorrectos', 'error')
-        return redirect(url_for('login'))
-    
+        # -- Verificar si el usuario ya está autenticado
+        if current_user.is_authenticated:
+            if current_user.role.value == RoleEnum.cliente.value:
+                return render_template('client_page.html', carousel_images=carousel_images), 200
+            else:
+                logout_user()
+                return render_template('login.html', carousel_images=carousel_images), 200
+        else:
+            logout_user()
+            return render_template('login.html', carousel_images=carousel_images), 200
+
+@app.route('/reservas', methods=['GET', 'POST'])
+def reserva():
+    '''
+    Pagina de autenticacion
+    '''
+
+    if request.method == 'GET':
+        return render_template('reservas.html'), 200
+    else:
+        # -- Capturar los datos del formulario
+        usermail = request.form.get('usermail')
+        password = request.form.get('password')
+
+        # -- Buscar al usuario en la base de datos
+        user = User.query.filter_by(usermail=usermail).first()
+
+        if user and bcrypt.check_password_hash(user.password_hash, password):
+            # -- Iniciar sesión con Flask-Login
+            login_user(user)
+
+            flash('Inicio de sesión exitoso', 'success')
+
+            if user.role.value == RoleEnum.cliente.value:
+                return redirect(url_for('get_client_page'))
+            elif user.role.value == RoleEnum.administrador.value:
+                return redirect(url_for('get_admin_page'))
+            else:
+                logout_user()
+                return redirect(url_for('login'))
+        else:
+            flash('Correo electrónico o contraseña incorrectos', 'error')
+            return render_template('reservas.html'), 200
+
 @app.route('/about_us')
 def sobre_nos():
     return render_template('about_us.html')

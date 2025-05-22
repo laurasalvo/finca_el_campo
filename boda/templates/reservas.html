@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% import 'macros.html' as macros %}
-{% block title %}Contáctanos{% endblock %}
+{% block title %}Reservaciones{% endblock %}
 {% block content %}
     <style>
         .landing_page * {
@@ -299,7 +299,7 @@
         <div class="responsive-container-block big-container">
             <img class="bg-img" id="iq5bf" src="{{ url_for('static', filename='images/clothes-bg.png') }}" alt=""/>
             <div class="responsive-container-block container">
-                <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12 left-one">
+                <!--div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12 left-one">
                     <div class="content-box">
                         <p class="text-blk section-head">
                             Contacta con nosotros
@@ -323,37 +323,28 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div-->
                 <div class="responsive-cell-block wk-ipadp-6 wk-tab-12 wk-mobile-12 wk-desk-6 right-one" id="i1zj">
                     <form class="form-box">
                         <div class="container-block form-wrapper">
                             <b class="text-blk contactus-head">
                                 <a class="link" href="" title="-">
                                 </a>
-                                Consultar
+                                Autentíquese
                             </b>
                             <p class="text-blk contactus-subhead">
-                                Escríbenos y te responderemos lo más pronto posible!
+                                Acceda con sus credenciales!
                             </p>
                             <div class="responsive-container-block">
                                 <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" style="width:100%" id="i10mt-7">
-                                    <input class="input" id="ijowk-7" name="fistname" placeholder="Nombre(s)">
+                                    <input class="input" id="ijowk-7" name="usermail" placeholder="Correo Electrónico">
                                 </div>
                                 <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" style="width:100%" id="i1ro7">
-                                    <input class="input" id="indfi-5" name="lastname" placeholder="Apellido(s)">
-                                </div>
-                                <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-6 wk-ipadp-6 emial" style="width:100%" id="ityct">
-                                    <input class="input" id="ipmgh-7" name="email" placeholder="Correo Electrónico">
-                                </div>
-                                <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12" style="width:100%">
-                                    <input class="input" id="imgis-6" name="phonenumber" placeholder="Número Telefónico">
-                                </div>
-                                <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" style="width:100%" id="i634i-7">
-                                    <textarea aria-placeholder="Escribe aquí tu mensaje" class="textinput" id="i5vyy-7" placeholder="Escribe aquí tu mensaje"></textarea>
+                                    <input class="input" id="indfi-5" name="userpass" placeholder="Contraseña">
                                 </div>
                             </div>
                             <button class="submit-btn">
-                                Consultar
+                                Acceder
                             </button>
                         </div>
                     </form>
