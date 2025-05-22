@@ -277,6 +277,10 @@ def reserva():
             flash('Correo electrónico o contraseña incorrectos', 'error')
             return render_template('reservas.html'), 200
 
+@app.route('/fincas')
+def fincas():
+    return render_template('alojamientos.html')
+
 @app.route('/aloja')
 def alojamientos():
     return render_template('alojamientos.html')
