@@ -141,7 +141,10 @@ def new_account():
     '''
     Registro de usuario
     '''
-    pass
+    if request.method == 'GET':
+        return render_template('register.html'), 200
+    else:
+        return render_template('reservas.html'), 200
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
