@@ -313,7 +313,7 @@ def get_admin_page():
         # -- Verificar si el usuario ya está autenticado
         if current_user.is_authenticated:
             if current_user.role.value == RoleEnum.administrador.value:
-                return render_template('admin_page.html', carousel_images=carousel_images, user=current_user), 200
+                return render_template('admin_page.html', carousel_images=carousel_images, user=current_user, reservas=[]), 200
             else:
                 logout_user()
                 return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
@@ -337,7 +337,7 @@ def get_client_page():
             return render_template('client_page.html', carousel_images=carousel_images, user=current_user, reservas=[]), 200
         else:
             logout_user()
-            return render_template('login.html', carousel_images=carousel_images, user=current_user, reservas=[]), 200
+            return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
     else:
         logout_user()
         return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
