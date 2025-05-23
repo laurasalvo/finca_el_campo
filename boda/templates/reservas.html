@@ -35,8 +35,9 @@
                             {% with messages = get_flashed_messages(with_categories=true) %}
                                 {% if messages %}
                                     {% for category, message in messages %}
-                                        <div class="alert alert-danger">
-                                            <strong>Denegado!</strong> {{ message }}
+                                        <div class="alert alert-primary alert-dismissible fade show">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                            <strong>Informe!</strong> {{ message }}
                                         </div>
                                     {% endfor %}
                                 {% endif %}

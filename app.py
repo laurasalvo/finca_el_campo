@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory, json, url_for, redirect, flash, render_template, render_template_string
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 import flask_bcrypt
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -136,15 +137,115 @@ def update_user(uid:int):
 
     return redirect(url_for('get_pacient_page', uid=user.id))
     
-@app.route('/register', methods=['POST', 'GET'])
+@app.route('/reservas', methods=['GET', 'POST'])
+def reserva():
+    '''
+    Pagina de autenticacion
+    '''
+
+    # -- Verificar si el usuario ya está autenticado
+    if current_user.is_authenticated:
+        if current_user.role.value == RoleEnum.cliente.value:
+            return redirect(url_for('get_client_page'))
+        elif current_user.role.value == RoleEnum.administrador.value:
+            return redirect(url_for('get_client_page'))
+        else:
+            logout_user()
+
+            # -- Selecccionar las imagenes del carrusel que estan activas para uso
+            carousel_images = CarouselImage.query.filter_by(is_active=True).all()
+
+            return render_template('login.html', carousel_images=carousel_images), 200
+        
+    if request.method == 'GET':
+        return render_template('reservas.html'), 200
+    else:
+        # -- Capturar los datos del formulario
+        usermail = request.form.get('usermail')
+        password = request.form.get('userpass')
+
+        # -- Buscar al usuario en la base de datos
+        user = User.query.filter_by(usermail=usermail).first()
+
+        if user and check_password_hash(user.password_hash, password):
+            # -- Iniciar sesión con Flask-Login
+            login_user(user)
+
+            flash('Inicio de sesión exitoso', 'success')
+
+            if user.role.value == RoleEnum.cliente.value:
+                return redirect(url_for('get_client_page'))
+            elif user.role.value == RoleEnum.administrador.value:
+                return redirect(url_for('get_admin_page'))
+            else:
+                logout_user()
+                return redirect(url_for('login'))
+        else:
+            flash('Correo electrónico o contraseña incorrectos', 'error')
+            return render_template('reservas.html'), 200
+        
+@app.route('/register', methods=['GET', 'POST'])
 def new_account():
     '''
     Registro de usuario
     '''
     if request.method == 'GET':
         return render_template('register.html'), 200
-    else:
-        return render_template('reservas.html'), 200
+
+    # Capturar los datos del formulario
+    username = request.form.get('username')
+    lastname = request.form.get('lastname')
+    usermail = request.form.get('usermail')
+    phonenumber = request.form.get('phonenumber')
+    password = request.form.get('userpass')
+    password2 = request.form.get('userpass_2')
+    birthday_str = request.form.get('birthday')  # Debe ser tipo "YYYY-MM-DD"
+    dni = request.form.get('dni', '-')
+    address = request.form.get('address', '-')
+
+    # Validaciones básicas
+    if not all([username, lastname, usermail, password, password2, birthday_str]):
+        flash('Todos los campos obligatorios deben completarse.', 'danger')
+        return redirect(url_for('new_account'))
+
+    if password != password2:
+        flash('Las contraseñas no coinciden.', 'danger')
+        return redirect(url_for('new_account'))
+
+    # Validar formato de fecha
+    try:
+        birthday = datetime.strptime(birthday_str, '%Y-%m-%d').date()
+    except ValueError:
+        flash('Formato de fecha de nacimiento inválido. Use YYYY-MM-DD.', 'danger')
+        return redirect(url_for('new_account'))
+
+    # Validar que el correo no esté registrado
+    existing_user = User.query.filter_by(usermail=usermail).first()
+    if existing_user:
+        flash('Este correo ya está registrado.', 'danger')
+        return redirect(url_for('new_account'))
+
+    # Crear nuevo usuario
+    hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
+
+    new_user = User(
+        username=username,
+        lastname=lastname,
+        usermail=usermail,
+        phone_number=phonenumber,
+        password_hash=hashed_password,
+        birthday=birthday,
+        dni=dni,
+        address=address,
+        role=RoleEnum.cliente.value
+    )
+
+    # Guardar en base de datos
+    db.session.add(new_user)
+    db.session.commit()
+
+    flash('Registro exitoso. ¡Bienvenido!', 'success')
+    return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -177,7 +278,7 @@ def login():
         # -- Buscar al usuario en la base de datos
         user = User.query.filter_by(usermail=usermail).first()
 
-        if user and bcrypt.check_password_hash(user.password_hash, password):
+        if user and check_password_hash(user.password_hash, password):
             # -- Iniciar sesión con Flask-Login
             login_user(user)
 
@@ -207,18 +308,18 @@ def get_admin_page():
     carousel_images = CarouselImage.query.filter_by(is_active=True).all()
 
     if request.method == 'GET':
-        return render_template('reservas.html', carousel_images=carousel_images), 200
+        return render_template('reservas.html', carousel_images=carousel_images, user=current_user), 200
     else:
         # -- Verificar si el usuario ya está autenticado
         if current_user.is_authenticated:
             if current_user.role.value == RoleEnum.administrador.value:
-                return render_template('admin_page.html', carousel_images=carousel_images), 200
+                return render_template('admin_page.html', carousel_images=carousel_images, user=current_user), 200
             else:
                 logout_user()
-                return render_template('login.html', carousel_images=carousel_images), 200
+                return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
         else:
             logout_user()
-            return render_template('login.html', carousel_images=carousel_images), 200
+            return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
 
 
 @app.route('/get_client_page', methods=['GET', 'POST'])
@@ -230,52 +331,16 @@ def get_client_page():
     # -- Selecccionar las imagenes del carrusel que estan activas para uso
     carousel_images = CarouselImage.query.filter_by(is_active=True).all()
 
-    if request.method == 'GET':
-        return render_template('reservas.html', carousel_images=carousel_images), 200
-    else:
-        # -- Verificar si el usuario ya está autenticado
-        if current_user.is_authenticated:
-            if current_user.role.value == RoleEnum.cliente.value:
-                return render_template('client_page.html', carousel_images=carousel_images), 200
-            else:
-                logout_user()
-                return render_template('login.html', carousel_images=carousel_images), 200
+    # -- Verificar si el usuario ya está autenticado
+    if current_user.is_authenticated:
+        if current_user.role.value == RoleEnum.cliente.value:
+            return render_template('client_page.html', carousel_images=carousel_images, user=current_user, reservas=[]), 200
         else:
             logout_user()
-            return render_template('login.html', carousel_images=carousel_images), 200
-
-@app.route('/reservas', methods=['GET', 'POST'])
-def reserva():
-    '''
-    Pagina de autenticacion
-    '''
-
-    if request.method == 'GET':
-        return render_template('reservas.html'), 200
+            return render_template('login.html', carousel_images=carousel_images, user=current_user, reservas=[]), 200
     else:
-        # -- Capturar los datos del formulario
-        usermail = request.form.get('usermail')
-        password = request.form.get('userpass')
-
-        # -- Buscar al usuario en la base de datos
-        user = User.query.filter_by(usermail=usermail).first()
-
-        if user and bcrypt.check_password_hash(user.password_hash, password):
-            # -- Iniciar sesión con Flask-Login
-            login_user(user)
-
-            flash('Inicio de sesión exitoso', 'success')
-
-            if user.role.value == RoleEnum.cliente.value:
-                return redirect(url_for('get_client_page'))
-            elif user.role.value == RoleEnum.administrador.value:
-                return redirect(url_for('get_admin_page'))
-            else:
-                logout_user()
-                return redirect(url_for('login'))
-        else:
-            flash('Correo electrónico o contraseña incorrectos', 'error')
-            return render_template('reservas.html'), 200
+        logout_user()
+        return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
 
 @app.route('/fincas')
 def fincas():

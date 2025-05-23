@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% import 'macros.html' as macros %}
-{% block title %}Contáctanos{% endblock %}
+{% block title %}Mis Reservas{% endblock %}
 {% block content %}
     <div class="container-fluid" style="display:flex;flex-direction: column;">
         <nav class="navbar navbar-expand-sm" style="top:0;width:100%;z-index: 10;background-color: #FAF9F6;">
@@ -23,6 +23,12 @@
                                 </a>
                             </div>
                         </li>
+                        {% if user %}
+                            <li class="nav-item">
+                                <a href="/logout" class="btn btn-sm btn-outline-danger" style="margin:10px">Cerrar Sesión</a>
+                                <a href="/login" class="btn btn-sm btn-outline-success" style="margin:10px">Volver al inicio</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -51,8 +57,53 @@
                 </ul>
             </div>
             <div class="container-fluid fondo_flor col-md-11">
-                <h1>CLIENT PAGE</h1>
-                <a href="/login" class="btn btn-sm btn-outline-danger" style="margin:10px">Regresar</a>
+                <div class="container-fluid mt-3">
+                <h2>Reservas</h2>
+                <p>Hola <code>{{user.username}} {{user.lastname}}</code>, tienes algunas actividades importantes con nosotros</p>            
+                <table class="table table-borderless table-hover" style="cursor:pointer">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Tipo</th>
+                            <th>Lugar</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Fin</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.lastname}}</td>
+                            <td>Boda</td>
+                            <td>Establo</td>
+                            <td>13-Jun-2025</td>
+                            <td>13-Jun-2025</td>
+                            <td><span class="badge bg-success">Aprobado</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.lastname}}</td>
+                            <td>Boda</td>
+                            <td>Establo</td>
+                            <td>26-Jun-2025</td>
+                            <td>28-Jun-2025</td>
+                            <td><span class="badge bg-warning">Pendiente</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                {{ macros.space() }}
+                {{ macros.space() }}
+                {{ macros.space() }}
+                {{ macros.space() }}
+                <div class="container-fluid">
+                    {{ macros.render_especial_carousel(carousel_images) }}
+                </div>
             </div>
         </div>
     </div>
