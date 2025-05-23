@@ -257,17 +257,7 @@ def login():
 
     # -- Selecccionar las imagenes del carrusel que estan activas para uso
     carousel_images = CarouselImage.query.filter_by(is_active=True).all()
-
-    # -- Verificar si el usuario ya está autenticado
-    if current_user.is_authenticated:
-        if current_user.role.value == RoleEnum.cliente.value:
-            return redirect(url_for('get_client_page'))
-        elif current_user.role.value == RoleEnum.administrador.value:
-            return redirect(url_for('get_client_page'))
-        else:
-            logout_user()
-            return render_template('login.html', carousel_images=carousel_images), 200
-        
+   
     if request.method == 'GET':
         return render_template('login.html', carousel_images=carousel_images), 200
     else:
