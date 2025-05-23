@@ -334,15 +334,24 @@ def get_client_page():
 
 @app.route('/fincas')
 def fincas():
-    return render_template('fincas.html', user=current_user)
+    # -- Selecccionar las imagenes del carrusel que estan activas para uso
+    carousel_images = CarouselImage.query.filter_by(is_active=True).all()
+
+    return render_template('fincas.html', user=current_user, carousel_images=carousel_images)
 
 @app.route('/aloja')
 def alojamientos():
-    return render_template('alojamientos.html', user=current_user)
+    # -- Selecccionar las imagenes del carrusel que estan activas para uso
+    carousel_images = CarouselImage.query.filter_by(is_active=True).all()
+
+    return render_template('alojamientos.html', user=current_user, carousel_images=carousel_images)
 
 @app.route('/events')
 def eventos():
-    return render_template('events.html', user=current_user)
+    # -- Selecccionar las imagenes del carrusel que estan activas para uso
+    carousel_images = CarouselImage.query.filter_by(is_active=True).all()
+
+    return render_template('events.html', user=current_user, carousel_images=carousel_images)
 
 @app.route('/about_us')
 def sobre_nos():
