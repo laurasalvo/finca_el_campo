@@ -172,7 +172,7 @@ def login():
     else:
         # -- Capturar los datos del formulario
         usermail = request.form.get('usermail')
-        password = request.form.get('password')
+        password = request.form.get('userpass')
 
         # -- Buscar al usuario en la base de datos
         user = User.query.filter_by(usermail=usermail).first()
@@ -255,7 +255,7 @@ def reserva():
     else:
         # -- Capturar los datos del formulario
         usermail = request.form.get('usermail')
-        password = request.form.get('password')
+        password = request.form.get('userpass')
 
         # -- Buscar al usuario en la base de datos
         user = User.query.filter_by(usermail=usermail).first()
