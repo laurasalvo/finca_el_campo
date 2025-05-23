@@ -39,7 +39,7 @@
 }
 
 body{
-    /*background-color: #053462 !important;*/
+    background-color: #FAF9F662 !important;
     background-color: white !important;
     height: 100%;
     margin: 0px;
@@ -74,7 +74,7 @@ body{
     background-attachment: fixed !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
-    /*background-color: black;*/
+    background-color: #FAF9F6 !important;
     
 }
 
