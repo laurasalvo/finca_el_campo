@@ -34,28 +34,7 @@
             </div>
         </nav>
         <div class="container-fluid content_body login" style="background-color: #FAF9F6; position: relative;display:flex;flex-direction: row;align-items:flex-start">
-            <div class="container-fluid col-md-1" style="overflow: hidden;background-color: #f8f7f3;border-right-style:solid;border-right-color: #ead9b1;border-right-width:2px">
-                <ul style="list-style: none;display: grid; gap: 1rem;margin:0px;padding:0px">
-                    <li class="nav-item">
-                        <a class="nav-link art-text" href="/reservas" style="font-size: .9rem;" data-bs-toggle="tooltip" data-bs-placement="top" title="Reservaciones">Reservaciones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link art-text" href="/fincas" style="font-size: .9rem;" data-bs-toggle="tooltip" data-bs-placement="top" title="Finca y Habitaciones">Finca y Habitaciones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link art-text" href="/events" style="font-size: .9rem;" data-bs-toggle="tooltip" data-bs-placement="top" title="Eventos">Eventos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link art-text" href="/aloja" style="font-size: .9rem;" data-bs-toggle="tooltip" data-bs-placement="top" title="Alojamientos">Alojamientos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link art-text" href="/contact_us" style="font-size: .9rem;" data-bs-toggle="tooltip" data-bs-placement="top" title="Contáctanos">Contáctanos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link art-text" href="/about_us" style="font-size: .9rem;" data-bs-toggle="tooltip" data-bs-placement="top" title="Sobre Nosotros">Sobre Nosotros</a>
-                    </li>
-                </ul>
-            </div>
+            {{ macros.left_panel() }}
             <div class="container-fluid fondo_flor col-md-11">
                 <h1>ADMIN PAGE</h1>
                 <a href="/login" class="btn btn-sm btn-outline-success" style="margin:10px">Volver al inicio</a>
