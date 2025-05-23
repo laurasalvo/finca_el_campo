@@ -3,7 +3,7 @@
 {% block title %}Administración{% endblock %}
 {% block content %}
     <div class="container-fluid" style="display:flex;flex-direction: column;">
-        <nav class="navbar navbar-expand-sm" style="top:0;width:100%;z-index: 10;background-color: #FAF9F6;">
+        <nav class="navbar navbar-expand-sm" style="top:0;width:100%;z-index: 10;background-color: #f8f7f3;">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" title="...">
                     <img src="{{ url_for('static', filename='images/logo_full.png') }}" style="margin:3px;width:200px" alt=""/>
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </nav>
-        <div class="container-fluid content_body login" style="background-color: #FAF9F6; position: relative;display:flex;flex-direction: row;align-items:flex-start">
+        <div class="container-fluid content_body login" style="background-color: #f8f7f3; position: relative;display:flex;flex-direction: row;align-items:flex-start">
             {{ macros.left_panel() }}
             <div class="container-fluid fondo_flor col-md-11">
                 <h1>ADMIN PAGE</h1>
