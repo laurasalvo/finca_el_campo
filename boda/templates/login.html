@@ -3,7 +3,7 @@
 {% block title %}Finca El Campo, celebra tu boda por todo lo alto!{% endblock %}
 {% block content %}
     <div class="container-fluid" style="display:flex;flex-direction: column;">
-        <nav class="navbar navbar-expand-sm" style="top:0;width:100%;z-index: 10;background-color: #FAF9F6;">
+        <nav class="navbar navbar-expand-sm" style="position:fixed;top:0;width:100%;z-index: 10;background-color: #FAF9F6;">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" title="...">
                     <img src="{{ url_for('static', filename='images/logo_full.png') }}" style="margin:3px;width:200px" alt=""/>
@@ -27,6 +27,11 @@
                 </div>
             </div>
         </nav>
+        {{ macros.space() }}
+        {{ macros.space() }}
+        {{ macros.space() }}
+        {{ macros.space() }}
+        {{ macros.space() }}
         <div class="container-fluid content_body login" style="background-color: #FAF9F6; position: relative;display:flex;flex-direction: row;align-items:flex-start">
             <div class="container-fluid col-md-1" style="overflow: hidden; background-color: #FAF9F6">
                 <ul style="list-style: none;display: grid; gap: 1rem;margin:0px;padding:0px">
@@ -52,16 +57,22 @@
             </div>
             <div class="container-fluid fondo_flor col-md-11">
                 <div class="container-fluid" style="display:flex;flex-direction: column;">
-                    <div class="container" style="height:30px"></div>
+                    {{ macros.space() }}
+                    {{ macros.space() }}
+                    {{ macros.space() }}
+                    {{ macros.space() }}
                     <div class="container-fluid" style="display:flex;flex-direction: row;margin-bottom:5px;justify-content:flex-end">
-                        <div id="accordion" style="max-width:50rem">
+                        <div class="container-fluid col-md-4">
+                            <img src="{{ url_for('static', filename='images/bodax.png') }}" class="rounded" alt="BodaX" style="max-width:80%">
+                        </div>
+                        <div class="col-md-8" id="accordion" style="max-width:70rem">
                             <div class="card" style="background-color: transparent !important;border:none">
                                 <div class="card-header rounded" style="background-color:#ead9b1 !important;color:white !important;">
                                     <a class="btn art-text" data-bs-toggle="collapse" href="#collapseOne" style="font-weight:bold">
                                         ▸ Bodas Finca El Campo
                                     </a>
                                 </div>
-                                <div id="collapseOne" class="collapse" data-bs-parent="#accordion">
+                                <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
                                     <div class="card-body art-text">
                                         <p style="padding-bottom: 10px;">Celebrar tu boda con nosotros es muy fácil, porque te ofrecemos la flexibilidad que necesitas, dándote distintas opciones:</p>
                                         <ul><li><strong>Reserva todo el evento con nosotros:</strong>&nbsp;Tendrás un servicio integral que incluye catering, decoración, organización de Ceremonia Civil, música, alojamiento… y todo lo que necesitas para que tu evento sea un éxito.</li><li><strong>Alquila las instalaciones y contrata proveedores externos:</strong>&nbsp;Si prefieres tener un mayor control sobre los detalles de tu evento, puedes alquilar nuestras instalaciones y contratar proveedores.</li></ul>
@@ -102,7 +113,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container" style="height:70px"></div>
+                    {{ macros.space() }}
+                    {{ macros.space() }}
+                    {{ macros.space() }}
+                    {{ macros.space() }}
                     <div class="container-fluid">
                         {{ macros.render_especial_carousel(carousel_images) }}
                     </div>
