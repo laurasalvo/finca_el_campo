@@ -259,7 +259,7 @@ def login():
     carousel_images = CarouselImage.query.filter_by(is_active=True).all()
    
     if request.method == 'GET':
-        return render_template('login.html', carousel_images=carousel_images), 200
+        return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
     else:
         # -- Capturar los datos del formulario
         usermail = request.form.get('usermail')

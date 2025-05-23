@@ -23,6 +23,12 @@
                                 </a>
                             </div>
                         </li>
+                        {% if user %}
+                            <li class="nav-item">
+                                <a href="/logout" class="btn btn-sm btn-outline-danger" style="margin:10px">Cerrar Sesión</a>
+                                <a href="/login" class="btn btn-sm btn-outline-success" style="margin:10px">Volver al inicio</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
