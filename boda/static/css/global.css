@@ -6,13 +6,19 @@
 
 .title_base {
     font-family: 'Art_Brewery', sans-serif !important;
-        top: 25%;
-        left: 50%;
-        transform: translate(-35rem, -30%) rotate(-30deg); /* Centro y rotación */
-        transform-origin: center center;
-        position:absolute;
-        color:white;
-        font-size: 96px;
+    top: 25%;
+    left: 50%;
+    transform: translate(-35rem, -30%) rotate(-30deg); /* Centro y rotación */
+    transform-origin: center center;
+    position:absolute;
+    color:white;
+    font-size: 96px;
+}
+
+.title_base_no_rot {
+    font-family: 'Art_Brewery', sans-serif !important;
+    color:white;
+    font-size: 72px;
 }
 
 @font-face {
