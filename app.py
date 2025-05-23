@@ -334,15 +334,15 @@ def get_client_page():
 
 @app.route('/fincas')
 def fincas():
-    return render_template('fincas.html')
+    return render_template('fincas.html', user=current_user)
 
 @app.route('/aloja')
 def alojamientos():
-    return render_template('alojamientos.html')
+    return render_template('alojamientos.html', user=current_user)
 
 @app.route('/events')
 def eventos():
-    return render_template('events.html')
+    return render_template('events.html', user=current_user)
 
 @app.route('/about_us')
 def sobre_nos():
