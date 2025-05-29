@@ -325,7 +325,7 @@
                     </div>
                 </div>
                 <div class="responsive-cell-block wk-ipadp-6 wk-tab-12 wk-mobile-12 wk-desk-6 right-one" id="i1zj">
-                    <form class="form-box">
+                    <form class="form-box" action="/contact_us" method="post">
                         <div class="container-block form-wrapper">
                             <b class="text-blk contactus-head">
                                 <a class="link" href="" title="-">
@@ -336,25 +336,42 @@
                                 Escríbenos y te responderemos lo más pronto posible!
                             </p>
                             <div class="responsive-container-block">
-                                <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" style="width:100%" id="i10mt-7">
-                                    <input class="input" id="ijowk-7" name="fistname" placeholder="Nombre(s)">
+                                <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" style="width:100%">
+                                    <input class="input" name="username" placeholder="Nombre(s)">
                                 </div>
-                                <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" style="width:100%" id="i1ro7">
-                                    <input class="input" id="indfi-5" name="lastname" placeholder="Apellido(s)">
+                                <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" style="width:100%">
+                                    <input class="input" name="lastname" placeholder="Apellido(s)">
                                 </div>
-                                <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-6 wk-ipadp-6 emial" style="width:100%" id="ityct">
-                                    <input class="input" id="ipmgh-7" name="email" placeholder="Correo Electrónico">
+                                <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" style="width:100%">
+                                    <input class="input" name="ciudad" placeholder="Ciudad">
+                                </div>
+                                <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" style="width:100%">
+                                    <input class="input" name="direccion" placeholder="Dirección">
+                                </div>
+                                <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-6 wk-ipadp-6 emial" style="width:100%">
+                                    <input class="input" type="email" name="usermail" placeholder="Correo Electrónico">
                                 </div>
                                 <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12" style="width:100%">
-                                    <input class="input" id="imgis-6" name="phonenumber" placeholder="Número Telefónico">
+                                    <input class="input" name="phone_number" placeholder="Número Telefónico">
                                 </div>
-                                <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" style="width:100%" id="i634i-7">
-                                    <textarea aria-placeholder="Escribe aquí tu mensaje" class="textinput" id="i5vyy-7" placeholder="Escribe aquí tu mensaje"></textarea>
+                                <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" style="width:100%">
+                                    <textarea aria-placeholder="Escribe aquí tu mensaje" class="textinput" name="message" placeholder="Escribe aquí tu mensaje"></textarea>
                                 </div>
                             </div>
                             <button class="submit-btn">
-                                Consultar
+                                Enviar Consulta
                             </button>
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                    <div class="flash-messages">
+                                    {% for category, message in messages %}
+                                        <div class="alert alert-info">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                    </div>
+                                {% endif %}
+                            {% endwith %}
                         </div>
                     </form>
                 </div>

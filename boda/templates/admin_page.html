@@ -36,8 +36,104 @@
         <div class="container-fluid content_body login" style="background-color: #f8f7f3; position: relative;display:flex;flex-direction: row;align-items:flex-start">
             {{ macros.left_panel() }}
             <div class="container-fluid fondo_flor col-md-11">
-                <div class="container mt-4">
-                    <h1 class="title_base_no_rot text-center" style="color:black">Adminitrador</h1>
+                <p>Bienvenid@ <code style="font-size:1rem;font-weight:bold">{{user.username}} {{user.lastname}}</code></p> 
+                <div class="container-fluid mt-4">
+                    <h1 class="title_base_no_rot text-left" style="color:black">Consultas</h1>        
+                    <table class="table table-borderless table-hover" style="cursor:pointer">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Teléfono</th>
+                                <th>Mensaje</th>
+                                <th>Fecha</th>
+                                <th>Respondida</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for consulta in consultas %}
+                            <tr>
+                                <td>{{ consulta.id }}</td>
+                                <td>{{ consulta.username }}</td>
+                                <td>{{ consulta.usermail }}</td>
+                                <td>{{ consulta.telefono or 'N/A' }}</td>
+                                <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ consulta.message }}">
+                                    {{ consulta.message }}
+                                </td>
+                                <td>{{ consulta.fecha_creacion.strftime('%d-%b-%Y %H:%M') }}</td>
+                                <td>
+                                    {% if consulta.respondida %}
+                                        <span class="badge bg-success">Sí</span>
+                                    {% else %}
+                                        <span class="badge bg-warning">No</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="7" class="text-center">No hay consultas registradas.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="container-fluid mt-4">
+                    <h1 class="title_base_no_rot text-left" style="color:black">Eventos</h1>        
+                    <table class="table table-borderless table-hover" style="cursor:pointer">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Tipo</th>
+                                <th>Lugar</th>
+                                <th>Fecha Inicio</th>
+                                <th>Fecha Fin</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="container-fluid mt-4">
+                    <h1 class="title_base_no_rot text-left" style="color:black">Reservaciones</h1>       
+                    <table class="table table-borderless table-hover" style="cursor:pointer">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Tipo</th>
+                                <th>Lugar</th>
+                                <th>Fecha Inicio</th>
+                                <th>Fecha Fin</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="container-fluid mt-4">
+                    <h1 class="title_base_no_rot text-left" style="color:black">Crear Reserva</h1>    
+                    <table class="table table-borderless table-hover" style="cursor:pointer">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Tipo</th>
+                                <th>Lugar</th>
+                                <th>Fecha Inicio</th>
+                                <th>Fecha Fin</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
                 {{ macros.space() }}
                 {{ macros.space() }}

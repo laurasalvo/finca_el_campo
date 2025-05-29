@@ -9,7 +9,7 @@ from flask_login import login_user
 from werkzeug.utils import secure_filename
 import os
 from boda import create_app
-from boda.models import User, CarouselImage
+from boda.models import User, CarouselImage, Consulta, Lugar, Habitacion, Reserva, ReservaEvento
 from dotenv import load_dotenv
 from enum import Enum
 from sqlalchemy.exc import IntegrityError
@@ -173,6 +173,7 @@ def reserva():
 
             flash('Inicio de sesión exitoso', 'success')
 
+            print(user.role.value, RoleEnum.administrador.value, user.role.value == RoleEnum.administrador.value)
             if user.role.value == RoleEnum.cliente.value:
                 return redirect(url_for('get_client_page'))
             elif user.role.value == RoleEnum.administrador.value:
@@ -297,20 +298,22 @@ def get_admin_page():
     # -- Selecccionar las imagenes del carrusel que estan activas para uso
     carousel_images = CarouselImage.query.filter_by(is_active=True).all()
 
-    if request.method == 'GET':
-        return render_template('reservas.html', carousel_images=carousel_images, user=current_user), 200
-    else:
-        # -- Verificar si el usuario ya está autenticado
-        if current_user.is_authenticated:
-            if current_user.role.value == RoleEnum.administrador.value:
-                return render_template('admin_page.html', carousel_images=carousel_images, user=current_user, reservas=[]), 200
-            else:
-                logout_user()
-                return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
+    # -- Verificar si el usuario ya está autenticado
+    if current_user.is_authenticated:
+        if current_user.role.value == RoleEnum.administrador.value:
+            
+            # -- Consultas no respondidas, ordenadas por más recientes primero
+            consultas = Consulta.query.filter_by(respondida=False).order_by(Consulta.fecha_creacion.asc()).all()
+            reservas = Reserva.query.filter_by(completado=False).all()
+            eventos = ReservaEvento.query.filter_by(completado=False).all()
+
+            return render_template('admin_page.html', carousel_images=carousel_images, user=current_user, reservas=reservas, consultas=consultas, eventos=eventos), 200
         else:
             logout_user()
             return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
-
+    else:
+        logout_user()
+        return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
 
 @app.route('/get_client_page', methods=['GET', 'POST'])
 @login_required
@@ -357,8 +360,41 @@ def eventos():
 def sobre_nos():
     return render_template('about_us.html')
 
-@app.route('/contact_us')
+@app.route('/contact_us', methods=['GET', 'POST'])
 def contactanos():
+    if request.method == 'POST':
+        # Capturar datos del formulario
+        username = request.form.get('username', '').strip()
+        lastname = request.form.get('lastname', '').strip()
+        full_name = f"{username} {lastname}".strip()
+
+        usermail = request.form.get('usermail', '').strip()
+        phone = request.form.get('phone_number', '').strip()
+        message = request.form.get('message', '').strip()
+        ciudad = request.form.get('direccion', '').strip()
+        direccion = request.form.get('direccion', '').strip()
+
+        # Validación simple
+        if not full_name or not usermail:
+            flash("Nombre y correo son obligatorios", "error")
+            return redirect('/contact_us')
+
+        # Crear registro en la base de datos
+        consulta = Consulta(
+            username=full_name,
+            usermail=usermail,
+            telefono=phone,
+            direccion=direccion,
+            ciudad=ciudad,
+            message=message,
+        )
+
+        db.session.add(consulta)
+        db.session.commit()
+
+        flash("Tu consulta fue enviada con éxito, le respondéremos en la menor brevedad posible", "success")
+        return redirect('/contact_us')
+
     return render_template('contact_us.html')
 
 @app.route('/logout')

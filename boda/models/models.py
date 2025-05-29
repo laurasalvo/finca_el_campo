@@ -75,6 +75,9 @@ class Consulta(db.Model):
     direccion = db.Column(db.String(255), nullable=True, comment="Dirección del cliente")
     ciudad = db.Column(db.String(100), nullable=True, comment="Ciudad del cliente")
     fecha_creacion = db.Column(db.DateTime, default=datetime.now(timezone.utc), nullable=False, comment="Fecha y hora en que se registró la consulta")
+    message = db.Column(db.Text, nullable=True, comment="Mensaje enviado por el cliente")
+    respondida = db.Column(db.Boolean, default=False, comment="Indica si la consulta ha sido respondida")
+    admin_response = db.Column(db.Text, default="-", comment="Respuesta del administrador")
 
     def __repr__(self):
         return f'<Consulta {self.username} - {self.usermail}>'
@@ -128,6 +131,7 @@ class Reserva(db.Model):
     fecha_entrada = db.Column(db.Date, nullable=True, comment="Fecha de entrada")
     fecha_salida = db.Column(db.Date, nullable=True, comment="Fecha de salida")
     fecha_reserva = db.Column(db.DateTime, default=datetime.now(timezone.utc), nullable=False, comment="Fecha en que se realizó la reserva")
+    completado = db.Column(db.Boolean, default=True, comment="Indica si fue completada la reserva")
 
     def __repr__(self):
         return f'<Reserva {self.username} - {self.fecha_entrada} a {self.fecha_salida}>'
@@ -154,6 +158,7 @@ class ReservaEvento(db.Model):
     lugar_evento = db.Column(db.String(150), nullable=True, comment="Lugar o área reservada")
     mensaje = db.Column(db.Text, nullable=True, comment="Mensaje adicional o requerimientos especiales")
     fecha_reserva = db.Column(db.DateTime, default=datetime.now(timezone.utc), nullable=False, comment="Fecha y hora en que se registró la reserva")
+    completado = db.Column(db.Boolean, default=True, comment="Indica si fue completado el evento")
 
     def __repr__(self):
         return f'<ReservaEvento {self.username} - {self.tipo_evento.name} - {self.fecha_evento}>'
