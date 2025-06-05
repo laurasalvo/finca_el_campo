@@ -4,6 +4,10 @@
     src: url('../fonts/Art_Brewery/Art_Brewery.ttf') format('opentype');
 }
 
+.input{
+    color:white !important;
+}
+
 .title_base {
     font-family: 'Art_Brewery', sans-serif !important;
     top: 25%;
