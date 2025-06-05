@@ -289,6 +289,81 @@ def login():
             flash('Correo electrónico o contraseña incorrectos', 'error')
             return redirect(url_for('login'))
     
+@app.route('/crear_evento/<int:uid>', methods=['GET', 'POST'])
+@login_required
+def crear_evento(uid: int = None):
+    '''
+    Crear una nueva reserva para un evento
+    '''
+    # -- Selecccionar las imagenes del carrusel que estan activas para uso
+    carousel_images = CarouselImage.query.filter_by(is_active=True).all()
+
+    # Buscar la consulta por ID
+    consulta = Consulta.query.get(uid)
+    if not consulta:
+        flash("Consulta no encontrada.", "danger")
+        return redirect(url_for('get_admin_page'))
+    
+    # -- Verificar si el usuario ya está autenticado
+    if current_user.is_authenticated:
+        if current_user.role.value == RoleEnum.administrador.value:
+            if request.method == 'POST':
+                try:
+                    evento = ReservaEvento(
+                        username=request.form['username'],
+                        usermail=request.form['usermail'],
+                        telefono=request.form.get('telefono'),
+                        tipo_evento=request.form['tipo_evento'],  # Asegúrate de que coincida con TipoEventoEnum
+                        fecha_evento=datetime.strptime(request.form['fecha_evento'], '%Y-%m-%d').date(),
+                        numero_invitados=int(request.form['numero_invitados']),
+                        lugar_evento=request.form.get('lugar_evento'),
+                        mensaje=request.form.get('mensaje')
+                    )
+                    db.session.add(evento)
+                    db.session.commit()
+                    return redirect(url_for('get_admin_page'))
+                except Exception as e:
+                    flash(f'Error al crear evento: {str(e)}', 'danger')
+            else:
+                return render_template('crear_evento.html', uid=uid, consulta=consulta, user=current_user)
+    return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
+
+@app.route('/crear_reserva/<int:uid>', methods=['GET', 'POST'])
+@login_required
+def crear_reserva(uid: int = None):
+    '''
+    Crear una nueva reserva de habitación
+    '''
+    # -- Selecccionar las imagenes del carrusel que estan activas para uso
+    carousel_images = CarouselImage.query.filter_by(is_active=True).all()
+
+    # Buscar la consulta por ID
+    consulta = Consulta.query.get(uid)
+    if not consulta:
+        flash("Consulta no encontrada.", "danger")
+        return redirect(url_for('get_admin_page'))
+    
+    # -- Verificar si el usuario ya está autenticado
+    if current_user.is_authenticated:
+        if current_user.role.value == RoleEnum.administrador.value:
+            if request.method == 'POST':
+                try:
+                    reserva = Reserva(
+                        habitacion_id=int(request.form['habitacion_id']),
+                        username=request.form['username'],
+                        usermail=request.form['usermail'],
+                        fecha_entrada=datetime.strptime(request.form['fecha_entrada'], '%Y-%m-%d').date(),
+                        fecha_salida=datetime.strptime(request.form['fecha_salida'], '%Y-%m-%d').date(),
+                    )
+                    db.session.add(reserva)
+                    db.session.commit()
+                    return redirect(url_for('get_admin_page'))
+                except Exception as e:
+                    flash(f'Error al crear reserva: {str(e)}', 'danger')
+            else:
+                return render_template('crear_reserva.html', uid=uid, consulta=consulta, user=current_user)
+    return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
+
 @app.route('/get_admin_page', methods=['GET', 'POST'])
 @login_required
 def get_admin_page():

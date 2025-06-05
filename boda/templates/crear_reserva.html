@@ -1,0 +1,69 @@
+ {% extends 'layout.html' %}
+{% import 'macros.html' as macros %}
+{% block title %}Reserva{% endblock %}
+{% block content %}
+    <div class="container-fluid" style="display:flex;flex-direction: column;">
+        <nav class="navbar navbar-expand-sm" style="top:0;width:100%;z-index: 10;background-color: #f8f7f3;">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" title="...">
+                    <img src="{{ url_for('static', filename='images/logo_full.png') }}" style="margin:3px;width:200px" alt=""/>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <div style="display:flex;flex-direction: row;justify-content: start;">
+                                <a class="nav-link" href="/">
+                                    <video autoplay muted loop id="loginVideo" style="max-width: 150px;border-radius: 10px;">
+                                        <source src="{{ url_for('static', filename='video/boda.mp4') }}" type="video/mp4">
+                                    </video>
+                                </a>
+
+                                <a class="nav-link" href="/" style="font-size:18px">
+                                    <img src="{{ url_for('static', filename='images/logo_full.png') }}" style="margin:3px;width:200px" alt=""/>
+                                </a>
+                            </div>
+                        </li>
+                        {% if user %}
+                            <li class="nav-item">
+                                <a href="/logout" class="btn btn-sm btn-outline-danger" style="margin:10px">Cerrar Sesión</a>
+                                <a href="/login" class="btn btn-sm btn-outline-success" style="margin:10px">Volver al inicio</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid content_body login" style="background-color: #f8f7f3; position: relative;display:flex;flex-direction: row;align-items:flex-start">
+            {{ macros.left_panel() }}
+            <div class="container-fluid fondo_flor col-md-11">
+                <div class="container-fluid" style="max-width:400px">
+                    <h2 class="mb-4">🏨 Crear Reserva de Habitación</h2>
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre del Cliente</label>
+                            <input type="text" class="form-control" name="username" value="{{ consulta.username }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" name="usermail" value="{{ consulta.usermail }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">ID de la Habitación</label>
+                            <input type="number" class="form-control" name="habitacion_id" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Fecha de Entrada</label>
+                            <input type="date" class="form-control" name="fecha_entrada" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Fecha de Salida</label>
+                            <input type="date" class="form-control" name="fecha_salida" required>
+                        </div>
+                        <button type="submit" class="btn btn-success" style="width:100%">Guardar Reserva</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ macros.footer() }}
+{% endblock %}

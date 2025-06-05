@@ -1,0 +1,88 @@
+ {% extends 'layout.html' %}
+{% import 'macros.html' as macros %}
+{% block title %}Evento{% endblock %}
+{% block content %}
+    <div class="container-fluid" style="display:flex;flex-direction: column;">
+        <nav class="navbar navbar-expand-sm" style="top:0;width:100%;z-index: 10;background-color: #f8f7f3;">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" title="...">
+                    <img src="{{ url_for('static', filename='images/logo_full.png') }}" style="margin:3px;width:200px" alt=""/>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <div style="display:flex;flex-direction: row;justify-content: start;">
+                                <a class="nav-link" href="/">
+                                    <video autoplay muted loop id="loginVideo" style="max-width: 150px;border-radius: 10px;">
+                                        <source src="{{ url_for('static', filename='video/boda.mp4') }}" type="video/mp4">
+                                    </video>
+                                </a>
+
+                                <a class="nav-link" href="/" style="font-size:18px">
+                                    <img src="{{ url_for('static', filename='images/logo_full.png') }}" style="margin:3px;width:200px" alt=""/>
+                                </a>
+                            </div>
+                        </li>
+                        {% if user %}
+                            <li class="nav-item">
+                                <a href="/logout" class="btn btn-sm btn-outline-danger" style="margin:10px">Cerrar Sesión</a>
+                                <a href="/login" class="btn btn-sm btn-outline-success" style="margin:10px">Volver al inicio</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid content_body login" style="background-color: #f8f7f3; position: relative;display:flex;flex-direction: row;align-items:flex-start">
+            {{ macros.left_panel() }}
+            <div class="container-fluid fondo_flor col-md-11">
+                <div class="container-fluid" style="max-width:400px">
+                    <h2 class="mb-4">📅 Crear Reserva de Evento</h2>
+                    <form method="POST" action="/crear_evento">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre del Cliente</label>
+                            <input type="text" class="form-control" name="username" value="{{ consulta.username }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" name="usermail" value="{{ consulta.usermail }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" name="telefono" value="{{ consulta.telefono }}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tipo de Evento</label>
+                            <select class="form-select" name="tipo_evento" required>
+                                <option value="boda">Boda</option>
+                                <option value="bautizo">Bautizo</option>
+                                <option value="cumpleaños">Cumpleaños</option>
+                                <option value="aniversario">Aniversario</option>
+                                <option value="corporativo">Evento Corporativo</option>
+                                <option value="otros">Otros</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Fecha del Evento</label>
+                            <input type="date" class="form-control" name="fecha_evento" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Número de Invitados</label>
+                            <input type="number" class="form-control" name="numero_invitados" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Lugar del Evento</label>
+                            <input type="text" class="form-control" name="lugar_evento">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Mensaje Adicional</label>
+                            <textarea class="form-control" name="mensaje" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success" style="width:100%">Guardar Evento</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ macros.footer() }}
+{% endblock %}
