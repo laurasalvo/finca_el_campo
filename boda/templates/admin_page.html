@@ -165,7 +165,7 @@
                                     <td>{{ reserva.fecha_entrada.strftime('%d-%b-%Y %H:%M') }}</td>
                                     <td>{{ reserva.fecha_salida.strftime('%d-%b-%Y %H:%M') }}</td>
                                     <td>
-                                        {% if reservado.completado %}
+                                        {% if reserva.completado %}
                                             <a href="/update_reserva_status/{{reserva.id}}" target="_self" class="btn btn-sm btn-danger" style="font-weight:bold">Reactivar</a>
                                         {% else %}
                                             <a href="/update_reserva_status/{{reserva.id}}" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Finalizar</a>
