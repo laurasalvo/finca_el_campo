@@ -289,6 +289,7 @@ def login():
             flash('Correo electrónico o contraseña incorrectos', 'error')
             return redirect(url_for('login'))
     
+@app.route('/crear_evento', methods=['GET', 'POST'])
 @app.route('/crear_evento/<int:uid>', methods=['GET', 'POST'])
 @login_required
 def crear_evento(uid: int = None):
@@ -336,6 +337,7 @@ def crear_evento(uid: int = None):
                 return render_template('crear_evento.html', uid=uid, consulta=consulta, user=current_user, carousel_images=carousel_images)
     return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
 
+@app.route('/crear_reserva', methods=['GET', 'POST'])
 @app.route('/crear_reserva/<int:uid>', methods=['GET', 'POST'])
 @login_required
 def crear_reserva(uid: int = None):
