@@ -38,8 +38,8 @@
             <div class="container-fluid fondo_flor col-md-11">
                 <b>Bienvenid@ <code style="font-size:2rem;font-weight:bold">{{user.username}} {{user.lastname}}</code></b>
                 <div class="container-fluid" style="margin-bottom:10px">
-                    <a href="/crear_reserva" class="btn btn-sm btn-success" style="font-weight:bold">Crear Reserva</a>
-                    <a href="/crear_evento" class="btn btn-sm btn-success" style="font-weight:bold">Crear Evento</a>
+                    <a href="/crear_reserva" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Crear Reserva Directa</a>
+                    <a href="/crear_evento" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Crear Evento Directo</a>
                 </div>
                 <div class="container-fluid" style="display:flex;flex-direction:row">
                     <div class="container-fluid">
@@ -74,8 +74,8 @@
                                         {% endif %}
                                     </td>
                                     <td>
-                                        <a href="/crear_reserva/{{consulta.id}}" target="_blank" class="btn btn-sm btn-success" style="font-weight:bold">Crear Reserva</a>
-                                        <a href="/crear_evento/{{consulta.id}}" target="_blank" class="btn btn-sm btn-success" style="font-weight:bold">Crear Evento</a>
+                                        <a href="/crear_reserva/{{consulta.id}}" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Crear Reserva</a>
+                                        <a href="/crear_evento/{{consulta.id}}" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Crear Evento</a>
                                     </td>
                                 </tr>
                                 {% else %}
@@ -95,34 +95,88 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Nombre</th>
-                                    <th>Apellido</th>
+                                    <th>Correo</th>
+                                    <th>Teléfono</th>
                                     <th>Tipo</th>
-                                    <th>Lugar</th>
-                                    <th>Fecha Inicio</th>
-                                    <th>Fecha Fin</th>
+                                    <th>Fecha Reserva</th>
+                                    <th>Fecha Evento</th>
+                                    <th>Invitados</th>
+                                    <th>Horario</th>
+                                    <th>Mensaje</th>
                                     <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for evento in eventos %}
+                                <tr>
+                                    <td>{{ evento.id }}</td>
+                                    <td>{{ evento.username }}</td>
+                                    <td>{{ evento.usermail }}</td>
+                                    <td>{{ evento.telefono or 'N/A' }}</td>
+                                    <td>{{ evento.tipo_evento or 'N/A' }}</td>
+                                    <td>{{ evento.fecha_reserva.strftime('%d-%b-%Y %H:%M') }}</td>
+                                    <td>{{ evento.fecha_evento.strftime('%d-%b-%Y %H:%M') }}</td>
+                                    <td>{{ evento.numero_invitados }}</td>
+                                    <td>{{ evento.horario }}</td>
+                                    <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ consulta.message }}">
+                                        {{ evento.message }}
+                                    </td>
+                                    <td>
+                                        {% if evento.completado %}
+                                            <a href="/update_evento_status/{{evento.id}}" target="_self" class="btn btn-sm btn-danger" style="font-weight:bold">Reactivar</a>
+                                        {% else %}
+                                            <a href="/update_evento_status/{{evento.id}}" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Finalizar</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="11" class="text-center">No hay eventos registrados.</td>
+                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
                     <div class="container-fluid">
-                        <h1 class="text-left" style="color:black">Reservaciones</h1>   <!--title_base_no_rot-->     
+                        <h1 class="text-left" style="color:black">Reservas</h1>   <!--title_base_no_rot-->     
                         <table class="table table-borderless table-hover" style="cursor:pointer">
                             <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Tipo</th>
-                                    <th>Lugar</th>
-                                    <th>Fecha Inicio</th>
-                                    <th>Fecha Fin</th>
+                                    <th>Correo</th>
+                                    <th>Habitación</th>
+                                    <th>Teléfono</th>
+                                    <th>Fecha Reserva</th>
+                                    <th>Fecha Entrada</th>
+                                    <th>Fecha Salida</th>
                                     <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for reserva in reservas %}
+                                <tr>
+                                    <td>{{ reserva.id }}</td>
+                                    <td>{{ reserva.username }}</td>
+                                    <td>{{ reserva.usermail }}</td>
+                                    <td>{{ reserva.habitacion_id.titulo }}/{{ reserva.habitacion_id.precio }}</td>
+                                    <td>{{ reserva.telefono or 'N/A' }}</td>
+                                    <td>{{ reserva.fecha_reserva.strftime('%d-%b-%Y %H:%M') }}</td>
+                                    <td>{{ reserva.fecha_entrada.strftime('%d-%b-%Y %H:%M') }}</td>
+                                    <td>{{ reserva.fecha_salida.strftime('%d-%b-%Y %H:%M') }}</td>
+                                    <td>
+                                        {% if reservado.completado %}
+                                            <a href="/update_reserva_status/{{reserva.id}}" target="_self" class="btn btn-sm btn-danger" style="font-weight:bold">Reactivar</a>
+                                        {% else %}
+                                            <a href="/update_reserva_status/{{reserva.id}}" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Finalizar</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="9" class="text-center">No hay reservas registradas.</td>
+                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>

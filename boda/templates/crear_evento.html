@@ -40,20 +40,20 @@
                     <h2 class="mb-4">📅 Crear Reserva de Evento</h2>
                     <form method="POST" action="/crear_evento">
                         <div class="mb-3">
-                            <label class="form-label">Nombre del Cliente</label>
+                            <label class="form-label" style="font-weight: bold;">Nombre del Cliente</label>
                             <input type="text" class="form-control" name="username" value="{{ consulta.username }}" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Correo Electrónico</label>
+                            <label class="form-label" style="font-weight: bold;">Correo Electrónico</label>
                             <input type="email" class="form-control" name="usermail" value="{{ consulta.usermail }}" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Teléfono</label>
+                            <label class="form-label" style="font-weight: bold;">Teléfono</label>
                             <input type="text" class="form-control" name="telefono" value="{{ consulta.telefono }}">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Tipo de Evento</label>
-                            <select class="form-select" name="tipo_evento" required>
+                            <label class="form-label" style="font-weight: bold;">Tipo de Evento</label>
+                            <select class="form-select" name="tipo_evento" title="-" required>
                                 <option value="boda">Boda</option>
                                 <option value="bautizo">Bautizo</option>
                                 <option value="cumpleaños">Cumpleaños</option>
@@ -63,22 +63,22 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Fecha del Evento</label>
+                            <label class="form-label" style="font-weight: bold;">Fecha del Evento</label>
                             <input type="date" class="form-control" name="fecha_evento" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Número de Invitados</label>
+                            <label class="form-label" style="font-weight: bold;">Número de Invitados</label>
                             <input type="number" class="form-control" name="numero_invitados" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Horario</label>
+                            <label class="form-label" style="font-weight: bold;">Horario</label>
                             <select class="form-select" name="lugar_evento" required>
                                 <option value="boda">Diurno</option>
                                 <option value="bautizo">Vespertino</option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Mensaje Adicional</label>
+                            <label class="form-label" style="font-weight: bold;">Mensaje Adicional</label>
                             <textarea class="form-control" name="mensaje" rows="3"></textarea>
                         </div>
                         <button type="submit" class="btn btn-success" style="width:100%">Guardar Evento</button>

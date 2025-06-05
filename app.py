@@ -252,43 +252,69 @@ def new_account():
 def login():
     '''
     Autenticación de usuario.
-    - GET   : Indica que el método correcto es POST.
+    - GET   : Muestra el formulario de login.
     - POST  : Procesa la autenticación.
     '''
 
-    # -- Selecccionar las imagenes del carrusel que estan activas para uso
+    # -- Seleccionar las imágenes del carrusel activas
     carousel_images = CarouselImage.query.filter_by(is_active=True).all()
-   
+
+    # -- Si ya está autenticado, redirigir directamente
+    if current_user.is_authenticated:
+        if current_user.role.value == RoleEnum.cliente.value:
+            return redirect(url_for('get_client_page'))
+        elif current_user.role.value == RoleEnum.administrador.value:
+            return redirect(url_for('get_admin_page'))
+
+    # -- Si es un GET, mostrar el formulario
     if request.method == 'GET':
         return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
-    else:
-        # -- Capturar los datos del formulario
-        usermail = request.form.get('usermail')
-        password = request.form.get('userpass')
 
-        # -- Buscar al usuario en la base de datos
-        user = User.query.filter_by(usermail=usermail).first()
+    # -- Si es un POST, procesar el formulario
+    usermail = request.form.get('usermail')
+    password = request.form.get('userpass')
 
-        if user and check_password_hash(user.password_hash, password):
-            # -- Iniciar sesión con Flask-Login
-            login_user(user)
+    user = User.query.filter_by(usermail=usermail).first()
 
-            flash('Inicio de sesión exitoso', 'success')
-            
-            # -- Redirigir al usuario a la página que intentaba acceder
-            next_page = request.args.get('next')
+    if user and check_password_hash(user.password_hash, password):
+        login_user(user)
+        flash('Inicio de sesión exitoso', 'success')
 
-            if user.role.value == RoleEnum.cliente.value:
-                return redirect(next_page or url_for('get_client_page'))
-            elif user.role.value == RoleEnum.administrador.value:
-                return redirect(next_page or url_for('get_admin_page'))
-            else:
-                logout_user()
-                return redirect(url_for('login'))
+        next_page = request.args.get('next')
+        if user.role.value == RoleEnum.cliente.value:
+            return redirect(next_page or url_for('get_client_page'))
+        elif user.role.value == RoleEnum.administrador.value:
+            return redirect(next_page or url_for('get_admin_page'))
         else:
-            flash('Correo electrónico o contraseña incorrectos', 'error')
+            logout_user()
             return redirect(url_for('login'))
+
+    flash('Correo electrónico o contraseña incorrectos', 'error')
+    return redirect(url_for('login'))
     
+@app.route('/update_evento_status/<int:uid>', methods=['GET'])
+@login_required
+def update_evento_status(uid: int = None):
+    '''
+    Actualiza estado de un evento
+    '''
+    # -- Verificar si el usuario ya está autenticado
+    if current_user.is_authenticated:
+        if current_user.role.value == RoleEnum.administrador.value:
+            evento = ReservaEvento.query.get(uid)
+
+            if evento:
+                try:
+                    # -- Alternar el estado
+                    evento.completado = not evento.completado
+                    db.session.commit()
+                    flash("Estado de la reserva actualizado correctamente.", "success")
+                except Exception as e:
+                    db.session.rollback()
+                    flash(f"Error al actualizar el estado: {str(e)}", "danger")
+
+    return redirect(url_for('get_admin_page'))
+
 @app.route('/crear_evento', methods=['GET', 'POST'])
 @app.route('/crear_evento/<int:uid>', methods=['GET', 'POST'])
 @login_required
@@ -337,6 +363,33 @@ def crear_evento(uid: int = None):
                 return render_template('crear_evento.html', uid=uid, consulta=consulta, user=current_user, carousel_images=carousel_images)
     return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
 
+@app.route('/update_reserva_status>/<int:uid>', methods=['GET'])
+@login_required
+def update_reserva_status(uid: int = None):
+    '''
+    Actualiza estado de una reserva
+    '''
+    # -- Verificar si el usuario ya está autenticado
+    if current_user.is_authenticated:
+        if current_user.role.value == RoleEnum.administrador.value:
+            reserva = Reserva.query.get(uid)
+
+            if reserva:
+                try:
+                    # -- Alternar el estado
+                    reserva.completado = not reserva.completado
+
+                    # -- Si la reserva se completó, liberar la habitación
+                    if reserva.completado and reserva.habitacion_id:
+                        reserva.habitacion_id.disponible = True
+
+                    db.session.commit()
+                    flash("Estado de la reserva actualizado correctamente.", "success")
+                except Exception as e:
+                    db.session.rollback()
+                    flash(f"Error al actualizar el estado: {str(e)}", "danger")
+    return redirect(url_for('get_admin_page'))
+
 @app.route('/crear_reserva', methods=['GET', 'POST'])
 @app.route('/crear_reserva/<int:uid>', methods=['GET', 'POST'])
 @login_required
@@ -370,12 +423,19 @@ def crear_reserva(uid: int = None):
                         fecha_salida=datetime.strptime(request.form['fecha_salida'], '%Y-%m-%d').date(),
                     )
                     db.session.add(reserva)
+
+                    # -- Marcar habitación como no disponible
+                    habitacion = Habitacion.query.get(reserva.habitacion_id)
+                    if habitacion:
+                        habitacion.disponible = False
+
                     db.session.commit()
                     return redirect(url_for('get_admin_page'))
                 except Exception as e:
                     flash(f'Error al crear reserva: {str(e)}', 'danger')
             else:
-                return render_template('crear_reserva.html', uid=uid, consulta=consulta, user=current_user, carousel_images=carousel_images)
+                habitaciones = Habitacion.query.filter_by(disponible=True).all()
+                return render_template('crear_reserva.html', uid=uid, consulta=consulta, user=current_user, carousel_images=carousel_images, habitaciones=habitaciones)
     return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
 
 @app.route('/get_admin_page', methods=['GET', 'POST'])

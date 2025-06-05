@@ -40,23 +40,27 @@
                     <h2 class="mb-4">🏨 Crear Reserva de Habitación</h2>
                     <form method="POST">
                         <div class="mb-3">
-                            <label class="form-label">Nombre del Cliente</label>
+                            <label class="form-label" style="font-weight: bold;">Nombre del Cliente</label>
                             <input type="text" class="form-control" name="username" value="{{ consulta.username }}" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Correo Electrónico</label>
+                            <label class="form-label" style="font-weight: bold;">Correo Electrónico</label>
                             <input type="email" class="form-control" name="usermail" value="{{ consulta.usermail }}" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">ID de la Habitación</label>
-                            <input type="number" class="form-control" name="habitacion_id" required>
+                            <label for="habitacion_id" class="form-label" style="font-weight: bold;">ID de la Habitación</label>
+                            <select class="form-select" name="habitacion_id" required>
+                                {% for hab in habitaciones %}
+                                    <option value="{{ hab.id }}">{{ hab.titulo }} - ${{ hab.precio }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Fecha de Entrada</label>
+                            <label class="form-label" style="font-weight: bold;">Fecha de Entrada</label>
                             <input type="date" class="form-control" name="fecha_entrada" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Fecha de Salida</label>
+                            <label class="form-label" style="font-weight: bold;">Fecha de Salida</label>
                             <input type="date" class="form-control" name="fecha_salida" required>
                         </div>
                         <button type="submit" class="btn btn-success" style="width:100%">Guardar Reserva</button>
