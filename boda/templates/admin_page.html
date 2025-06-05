@@ -123,9 +123,9 @@
                                     </td>
                                     <td>
                                         {% if evento.completado %}
-                                            <a href="/update_evento_status/{{evento.id}}" target="_self" class="btn btn-sm btn-danger" style="font-weight:bold">Reactivar</a>
+                                            <a href="/update_evento_status/{{evento.id}}" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Reactivar</a>
                                         {% else %}
-                                            <a href="/update_evento_status/{{evento.id}}" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Finalizar</a>
+                                            <a href="/update_evento_status/{{evento.id}}" target="_self" class="btn btn-sm btn-danger" style="font-weight:bold">Finalizar</a>
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -159,16 +159,16 @@
                                     <td>{{ reserva.id }}</td>
                                     <td>{{ reserva.username }}</td>
                                     <td>{{ reserva.usermail }}</td>
-                                    <td>{{ reserva.habitacion_id.titulo }}/{{ reserva.habitacion_id.precio }}</td>
+                                    <td>{{ reserva.habitacion.titulo }} (${{reserva.habitacion.precio}})</td>
                                     <td>{{ reserva.telefono or 'N/A' }}</td>
                                     <td>{{ reserva.fecha_reserva.strftime('%d-%b-%Y %H:%M') }}</td>
                                     <td>{{ reserva.fecha_entrada.strftime('%d-%b-%Y %H:%M') }}</td>
                                     <td>{{ reserva.fecha_salida.strftime('%d-%b-%Y %H:%M') }}</td>
                                     <td>
                                         {% if reserva.completado %}
-                                            <a href="/update_reserva_status/{{reserva.id}}" target="_self" class="btn btn-sm btn-danger" style="font-weight:bold">Reactivar</a>
+                                            <a href="/update_reserva_status/{{reserva.id}}" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Reactivar</a>
                                         {% else %}
-                                            <a href="/update_reserva_status/{{reserva.id}}" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Finalizar</a>
+                                            <a href="/update_reserva_status/{{reserva.id}}" target="_self" class="btn btn-sm btn-danger" style="font-weight:bold">Finalizar</a>
                                         {% endif %}
                                     </td>
                                 </tr>

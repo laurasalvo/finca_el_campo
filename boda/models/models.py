@@ -135,7 +135,7 @@ class Reserva(db.Model):
 
     def __repr__(self):
         return f'<Reserva {self.username} - {self.fecha_entrada} a {self.fecha_salida}>'
-    
+
     @validates('fecha_entrada', 'fecha_salida')
     def validar_fechas(self, key, value):
         if key == 'fecha_salida' and self.fecha_entrada and value <= self.fecha_entrada:
