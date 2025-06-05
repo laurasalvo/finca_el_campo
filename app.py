@@ -302,6 +302,14 @@ def crear_evento(uid: int = None):
     consulta = Consulta.query.get(uid)
     if not consulta:
         flash("Consulta no encontrada.", "danger")
+        consulta = {
+            'username': '-',
+            'usermail': '-',
+            'telefono': '-',
+            'direccion': '-',
+            'ciudad': '-',
+            'message': '-',
+        }
         return redirect(url_for('get_admin_page'))
     
     # -- Verificar si el usuario ya está autenticado
@@ -325,7 +333,7 @@ def crear_evento(uid: int = None):
                 except Exception as e:
                     flash(f'Error al crear evento: {str(e)}', 'danger')
             else:
-                return render_template('crear_evento.html', uid=uid, consulta=consulta, user=current_user)
+                return render_template('crear_evento.html', uid=uid, consulta=consulta, user=current_user, carousel_images=carousel_images)
     return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
 
 @app.route('/crear_reserva/<int:uid>', methods=['GET', 'POST'])
@@ -341,7 +349,11 @@ def crear_reserva(uid: int = None):
     consulta = Consulta.query.get(uid)
     if not consulta:
         flash("Consulta no encontrada.", "danger")
-        return redirect(url_for('get_admin_page'))
+        consulta = {
+            'username': '-',
+            'usermail': '-'
+        }
+        #return redirect(url_for('get_admin_page'))
     
     # -- Verificar si el usuario ya está autenticado
     if current_user.is_authenticated:
@@ -361,7 +373,7 @@ def crear_reserva(uid: int = None):
                 except Exception as e:
                     flash(f'Error al crear reserva: {str(e)}', 'danger')
             else:
-                return render_template('crear_reserva.html', uid=uid, consulta=consulta, user=current_user)
+                return render_template('crear_reserva.html', uid=uid, consulta=consulta, user=current_user, carousel_images=carousel_images)
     return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
 
 @app.route('/get_admin_page', methods=['GET', 'POST'])

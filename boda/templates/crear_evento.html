@@ -36,7 +36,7 @@
         <div class="container-fluid content_body login" style="background-color: #f8f7f3; position: relative;display:flex;flex-direction: row;align-items:flex-start">
             {{ macros.left_panel() }}
             <div class="container-fluid fondo_flor col-md-11">
-                <div class="container-fluid" style="max-width:400px">
+                <div class="container-fluid" style="max-width:500px;background-color:white;padding:10px;border-radius:8px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                     <h2 class="mb-4">📅 Crear Reserva de Evento</h2>
                     <form method="POST" action="/crear_evento">
                         <div class="mb-3">
@@ -80,6 +80,13 @@
                         </div>
                         <button type="submit" class="btn btn-success" style="width:100%">Guardar Evento</button>
                     </form>
+                </div>
+                {{ macros.space() }}
+                {{ macros.space() }}
+                {{ macros.space() }}
+                {{ macros.space() }}
+                <div class="container-fluid">
+                    {{ macros.render_especial_carousel(carousel_images) }}
                 </div>
             </div>
         </div>
