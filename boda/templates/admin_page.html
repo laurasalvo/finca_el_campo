@@ -25,8 +25,8 @@
                         </li>
                         {% if user %}
                             <li class="nav-item">
-                                <a href="/logout" class="btn btn-sm btn-outline-danger" style="margin:10px">Cerrar Sesión</a>
-                                <a href="/login" class="btn btn-sm btn-outline-success" style="margin:10px">Volver al inicio</a>
+                                <a href="/logout" class="btn btn-sm btn-outline-danger" style="margin:10px;font-weight:bold">Cerrar Sesión</a>
+                                <a href="/login" class="btn btn-sm btn-outline-success" style="margin:10px;font-weight:bold">Volver al inicio</a>
                             </li>
                         {% endif %}
                     </ul>
@@ -36,10 +36,10 @@
         <div class="container-fluid content_body login" style="background-color: #f8f7f3; position: relative;display:flex;flex-direction: row;align-items:flex-start">
             {{ macros.left_panel() }}
             <div class="container-fluid fondo_flor col-md-11">
-                <p>Bienvenid@ <code style="font-size:1rem;font-weight:bold">{{user.username}} {{user.lastname}}</code></p>
+                <b>Bienvenid@ <code style="font-size:2rem;font-weight:bold">{{user.username}} {{user.lastname}}</code></b>
                 <div class="container-fluid" style="margin-bottom:10px">
-                    <a href="/crear_reserva" class="btn btn-sm btn-success">Crear Reserva</a>
-                    <a href="/crear_evento" class="btn btn-sm btn-success">Crear Evento</a>
+                    <a href="/crear_reserva" class="btn btn-sm btn-success" style="font-weight:bold">Crear Reserva</a>
+                    <a href="/crear_evento" class="btn btn-sm btn-success" style="font-weight:bold">Crear Evento</a>
                 </div>
                 <div class="container-fluid" style="display:flex;flex-direction:row">
                     <div class="container-fluid">
@@ -74,8 +74,8 @@
                                         {% endif %}
                                     </td>
                                     <td>
-                                        <a href="/crear_reserva/{{consulta.id}}" target="_blank" class="btn btn-sm btn-success">Crear Reserva</a>
-                                        <a href="/crear_evento/{{consulta.id}}" target="_blank" class="btn btn-sm btn-success">Crear Evento</a>
+                                        <a href="/crear_reserva/{{consulta.id}}" target="_blank" class="btn btn-sm btn-success" style="font-weight:bold">Crear Reserva</a>
+                                        <a href="/crear_evento/{{consulta.id}}" target="_blank" class="btn btn-sm btn-success" style="font-weight:bold">Crear Evento</a>
                                     </td>
                                 </tr>
                                 {% else %}

@@ -25,8 +25,8 @@
                         </li>
                         {% if user %}
                             <li class="nav-item">
-                                <a href="/logout" class="btn btn-sm btn-outline-danger" style="margin:10px">Cerrar Sesión</a>
-                                <a href="/login" class="btn btn-sm btn-outline-success" style="margin:10px">Volver al inicio</a>
+                                <a href="/logout" class="btn btn-sm btn-outline-danger" style="margin:10px;font-weight:bold">Cerrar Sesión</a>
+                                <a href="/login" class="btn btn-sm btn-outline-success" style="margin:10px;font-weight:bold">Volver al inicio</a>
                             </li>
                         {% endif %}
                     </ul>
@@ -38,7 +38,7 @@
             <div class="container-fluid fondo_flor col-md-11">
                 <div class="container mt-4">
                     <h1 class="title_base_no_rot text-center" style="color:black">Reservaciones</h1>
-                    <p>Bienvenido <code style="font-size:1rem;font-weight:bold">{{user.username}} {{user.lastname}}</code>, tienes algunas actividades importantes</p>            
+                    <b>Bienvenido <code style="font-size:2rem;font-weight:bold">{{user.username}} {{user.lastname}}</code></b>            
                     <table class="table table-borderless table-hover" style="cursor:pointer">
                         <thead>
                             <tr>
