@@ -71,8 +71,11 @@
                             <input type="number" class="form-control" name="numero_invitados" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Lugar del Evento</label>
-                            <input type="text" class="form-control" name="lugar_evento">
+                            <label class="form-label">Horario</label>
+                            <select class="form-select" name="lugar_evento" required>
+                                <option value="boda">Diurno</option>
+                                <option value="bautizo">Vespertino</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Mensaje Adicional</label>
