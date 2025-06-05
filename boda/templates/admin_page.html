@@ -35,15 +35,15 @@
         </nav>
         <div class="container-fluid content_body login" style="background-color: #f8f7f3; position: relative;display:flex;flex-direction: row;align-items:flex-start">
             {{ macros.left_panel() }}
-            <div class="container-fluid fondo_flor col-md-11">
-                <b>Bienvenid@ <code style="font-size:2rem;font-weight:bold">{{user.username}} {{user.lastname}}</code></b>
+            <div class="container-fluid fondo_flor col-md-11" style="text-align:center">
+                <b style="font-size:72px">Bienvenid@ <code style="font-size:2rem;font-weight:bold">{{user.username}} {{user.lastname}}</code></b>
                 <div class="container-fluid" style="margin-bottom:10px">
                     <a href="/crear_reserva" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Crear Reserva Directa</a>
                     <a href="/crear_evento" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Crear Evento Directo</a>
                 </div>
                 <div class="container-fluid" style="display:flex;flex-direction:row">
                     <div class="container-fluid">
-                        <h1 class="text-left" style="color:black">Consultas</h1>   <!--title_base_no_rot-->     
+                        <h1 class="text-left" style="color:black;text-align:left">Consultas</h1>   <!--title_base_no_rot-->     
                         <table class="table table-borderless table-hover" style="cursor:pointer">
                             <thead>
                                 <tr>
@@ -87,9 +87,9 @@
                         </table>
                     </div>
                 </div>
-                <div class="container-fluid" style="display:flex;flex-direction:row">
+                <div class="container-fluid" style="display:flex;flex-direction:column">
                     <div class="container-fluid">
-                        <h1 class="text-left" style="color:black">Eventos</h1>     <!--title_base_no_rot-->     
+                        <h1 class="text-left" style="color:black;text-align:left">Eventos</h1>     <!--title_base_no_rot-->     
                         <table class="table table-borderless table-hover" style="cursor:pointer">
                             <thead>
                                 <tr>
@@ -113,7 +113,7 @@
                                     <td>{{ evento.username }}</td>
                                     <td>{{ evento.usermail }}</td>
                                     <td>{{ evento.telefono or 'N/A' }}</td>
-                                    <td>{{ evento.tipo_evento or 'N/A' }}</td>
+                                    <td>{{ evento.tipo_evento.value or 'N/A' }}</td>
                                     <td>{{ evento.fecha_reserva.strftime('%d-%b-%Y %H:%M') }}</td>
                                     <td>{{ evento.fecha_evento.strftime('%d-%b-%Y %H:%M') }}</td>
                                     <td>{{ evento.numero_invitados }}</td>
@@ -138,7 +138,7 @@
                         </table>
                     </div>
                     <div class="container-fluid">
-                        <h1 class="text-left" style="color:black">Reservas</h1>   <!--title_base_no_rot-->     
+                        <h1 class="text-left" style="color:black;text-align:left">Reservas</h1>   <!--title_base_no_rot-->     
                         <table class="table table-borderless table-hover" style="cursor:pointer">
                             <thead>
                                 <tr>
