@@ -38,7 +38,7 @@
             <div class="container-fluid fondo_flor col-md-11">
                 <div class="container-fluid" style="max-width:500px;background-color:white;padding:10px;border-radius:8px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                     <h2 class="mb-4">📅 Crear Reserva de Evento</h2>
-                    <form method="POST" action="/crear_evento">
+                    <form method="POST" action="/crear_evento/{{uid}}">
                         <div class="mb-3">
                             <label class="form-label" style="font-weight: bold;">Nombre del Cliente</label>
                             <input type="text" class="form-control" name="username" value="{{ consulta.username }}" required>

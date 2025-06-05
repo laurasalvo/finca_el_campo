@@ -326,7 +326,9 @@ def crear_evento(uid: int = None):
     carousel_images = CarouselImage.query.filter_by(is_active=True).all()
 
     # Buscar la consulta por ID
-    consulta = Consulta.query.get(uid)
+    consulta = None
+    if uid is not None:
+        consulta = Consulta.query.get(uid)
     if not consulta:
         flash("Consulta no encontrada.", "danger")
         consulta = {
@@ -401,7 +403,9 @@ def crear_reserva(uid: int = None):
     carousel_images = CarouselImage.query.filter_by(is_active=True).all()
 
     # Buscar la consulta por ID
-    consulta = Consulta.query.get(uid)
+    consulta = None
+    if uid is not None:
+        consulta = Consulta.query.get(uid)
     if not consulta:
         flash("Consulta no encontrada.", "danger")
         consulta = {
