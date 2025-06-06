@@ -96,7 +96,6 @@ def convert_to_pdf(data:str, report_name:str) -> None:
 def static_file(filename):
     return send_from_directory(app.static_folder, filename)
 
-
 @app.route('/update_user/<int:uid>', methods=['POST', 'GET'])
 @login_required
 def update_user(uid:int):
@@ -480,7 +479,13 @@ def get_client_page():
     # -- Verificar si el usuario ya está autenticado
     if current_user.is_authenticated:
         if current_user.role.value == RoleEnum.cliente.value:
-            return render_template('client_page.html', carousel_images=carousel_images, user=current_user, reservas=[]), 200
+
+            # -- Tickets
+            consultas = Consulta.query.filter_by(respondida=False, usermail=current_user.usermail).order_by(Consulta.fecha_creacion.asc()).all()
+            reservas = Reserva.query.filter_by(completado=False, usermail=current_user.usermail)
+            eventos = ReservaEvento.query.filter_by(completado=False, usermail=current_user.usermail)
+            
+            return render_template('client_page.html', carousel_images=carousel_images, user=current_user, reservas=reservas, eventos=eventos, consultas=consultas), 200
         else:
             logout_user()
             return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
