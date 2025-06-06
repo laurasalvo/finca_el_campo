@@ -38,20 +38,20 @@
             <div class="container-fluid fondo_flor col-md-11">
                 <div class="container-fluid" style="display:flex;flex-direction:column">
                     <div class="container mt-4">
-                        <h1 class="title_base_no_rot text-center" style="color:black">Lugares</h1>
+                        <h1 class="title_base_no_rot text-center" style="color:black">Zonas</h1>
                     </div>
-                    <div class="container-fluid">
+                    <div class="container-fluid" style="display:flex;flex-direction: row;flex-wrap:wrap">
                         {% for lugar in lugares %}
-                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <div class="col-md-3 col-lg-3 col-sm-12 view_img" style="padding:5px">
                                 <img src="{{ url_for('static', filename=lugar.imagen.replace('static/', '')) }}" class="d-block w-100 rounded-4" alt="{{ lugar.titulo }}">
-                                <div class="carousel-caption d-none d-md-block">
+                                <div style="max-width:21rem">
                                     <p>{{ lugar.descripcion }}</p>
                                 </div>
                             </div>
                         {% else %}
-                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <div class="container">
                                 <img src="{{ url_for('static', filename='images/carrusel/boda7.png') }}"  class="d-block w-100 rounded-4" alt="Finca El Campo">
-                                <div class="carousel-caption d-none d-md-block">
+                                <div>
                                     <p>Finca El Campo</p>
                                 </div>
                             </div>
@@ -60,26 +60,24 @@
                     <div class="container mt-4">
                         <h1 class="title_base_no_rot text-center" style="color:black">Habitaciones</h1>
                     </div>
-                    <div class="container-fluid">
+                    <div class="container-fluid" style="display:flex;flex-direction: row;flex-wrap:wrap;">
                         {% for habitacion in habitaciones %}
-                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <div class="col-md-3 col-lg-3 col-sm-12 view_img" style="padding:5px">
                                 <img src="{{ url_for('static', filename=habitacion.imagen.replace('static/', '')) }}" class="d-block w-100 rounded-4" alt="{{ habitacion.titulo }}">
-                                <div class="carousel-caption d-none d-md-block">
+                                <div style="max-width:30rem">
                                     <p>{{ habitacion.descripcion }}</p>
                                 </div>
                             </div>
                         {% else %}
-                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <div class="container">
                                 <img src="{{ url_for('static', filename='images/carrusel/boda7.png') }}"  class="d-block w-100 rounded-4" alt="Finca El Campo">
-                                <div class="carousel-caption d-none d-md-block">
+                                <div>
                                     <p>Finca El Campo</p>
                                 </div>
                             </div>
                         {% endfor %}
                     </div>
                 </div>
-
-
                 {{ macros.space() }}
                 {{ macros.space() }}
                 {{ macros.space() }}

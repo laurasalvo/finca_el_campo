@@ -8,6 +8,20 @@
     color:white !important;
 }
 
+.view_img img:hover {
+    animation: shake 0.3s ease-in-out;
+    cursor:pointer;
+}
+
+@keyframes shake {
+    0% { transform: translate(0.5px, 0.5px) rotate(0deg); }
+    20% { transform: translate(-0.5px, -0.5px) rotate(-0.2deg); }
+    40% { transform: translate(-1px, 0px) rotate(0.2deg); }
+    60% { transform: translate(1px, 0.5px) rotate(0deg); }
+    80% { transform: translate(0.5px, -0.5px) rotate(-0.2deg); }
+    100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+
 .title_base {
     font-family: 'Art_Brewery', sans-serif !important;
     top: 25%;
