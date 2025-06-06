@@ -54,33 +54,33 @@
                             </thead>
                             <tbody>
                                 {% for consulta in consultas %}
-                                <tr>
-                                    <td>{{ consulta.id }}</td>
-                                    <td>{{ consulta.usermail }}</td>
-                                    <td>{{ consulta.telefono or 'N/A' }}</td>
-                                    <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ consulta.message }}">
-                                        {{ consulta.message }}
-                                    </td>
-                                    <td>{{ consulta.fecha_creacion.strftime('%d-%b-%Y %H:%M') }}</td>
-                                    <td>
-                                        {% if consulta.respondida %}
-                                            <span class="badge bg-warning">Solicitud atendida</span>
-                                        {% else %}
-                                            <button class="btn btn-sm btn-primary" disabled>
-                                                <span class="spinner-border spinner-border-sm"></span>
-                                                Pendiente por aprobación...
-                                            </button>
-                                        {% endif %}
-                                    </td>
-                                    <!--td>
-                                        <a href="/crear_reserva/{{consulta.id}}" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Crear Reserva</a>
-                                        <a href="/crear_evento/{{consulta.id}}" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Crear Evento</a>
-                                    </td-->
-                                </tr>
+                                    <tr>
+                                        <td>{{ consulta.id }}</td>
+                                        <td>{{ consulta.usermail }}</td>
+                                        <td>{{ consulta.telefono or 'N/A' }}</td>
+                                        <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ consulta.message }}">
+                                            {{ consulta.message }}
+                                        </td>
+                                        <td>{{ consulta.fecha_creacion.strftime('%d-%b-%Y %H:%M') }}</td>
+                                        <td>
+                                            {% if consulta.respondida %}
+                                                <span class="badge bg-warning">Solicitud atendida</span>
+                                            {% else %}
+                                                <button class="btn btn-sm btn-primary" disabled>
+                                                    <span class="spinner-border spinner-border-sm"></span>
+                                                    Pendiente por aprobación...
+                                                </button>
+                                            {% endif %}
+                                        </td>
+                                        <!--td>
+                                            <a href="/crear_reserva/{{consulta.id}}" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Crear Reserva</a>
+                                            <a href="/crear_evento/{{consulta.id}}" target="_self" class="btn btn-sm btn-success" style="font-weight:bold">Crear Evento</a>
+                                        </td-->
+                                    </tr>
                                 {% else %}
-                                <tr>
-                                    <td colspan="7" class="text-center">No hay consultas registradas.</td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="7" class="text-center">No hay consultas registradas.</td>
+                                    </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
