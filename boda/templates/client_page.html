@@ -48,7 +48,7 @@
                                     <th>Teléfono</th>
                                     <th>Mensaje</th>
                                     <th>Fecha</th>
-                                    <th>Respondida</th>
+                                    <th>Estado</th>
                                     <!--th>Acción</th-->
                                 </tr>
                             </thead>
@@ -64,9 +64,12 @@
                                     <td>{{ consulta.fecha_creacion.strftime('%d-%b-%Y %H:%M') }}</td>
                                     <td>
                                         {% if consulta.respondida %}
-                                            <span class="badge bg-success">Sí</span>
+                                            <span class="badge bg-warning">Solicitud atendida</span>
                                         {% else %}
-                                            <span class="badge bg-warning">No</span>
+                                            <button class="btn btn-sm btn-primary" disabled>
+                                                <span class="spinner-border spinner-border-sm"></span>
+                                                Pendiente por aprobación...
+                                            </button>
                                         {% endif %}
                                     </td>
                                     <!--td>
