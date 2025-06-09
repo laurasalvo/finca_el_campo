@@ -546,7 +546,7 @@ def contactanos():
         message = request.form.get('message', '').strip()
         ciudad = request.form.get('direccion', '').strip()
         direccion = request.form.get('direccion', '').strip()
-        tipo_reserva = request.form('tipo_reserva', '-').strip()
+        tipo_reserva = request.form['tipo_reserva']
         fecha_reserva =datetime.strptime(request.form['fecha_reserva'], '%Y-%m-%d').date()
 
         # Validación simple
