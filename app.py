@@ -356,6 +356,10 @@ def crear_evento(uid: int = None):
                         mensaje=request.form.get('mensaje')
                     )
                     db.session.add(evento)
+
+                    # -- Marcar la consulta como respondida
+                    consulta.respondida = True
+
                     db.session.commit()
                     return redirect(url_for('get_admin_page'))
                 except Exception as e:
@@ -431,6 +435,9 @@ def crear_reserva(uid: int = None):
                     habitacion = Habitacion.query.get(reserva.habitacion_id)
                     if habitacion:
                         habitacion.disponible = False
+
+                    # -- Marcar la consulta como respondida
+                    consulta.respondida = True
 
                     db.session.commit()
                     return redirect(url_for('get_admin_page'))
