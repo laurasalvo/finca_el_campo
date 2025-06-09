@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory, json, url_for, redirect, flash, render_template, render_template_string
+from flask import Flask, request, jsonify, send_from_directory, json, url_for, redirect, flash, render_template, render_template_string, current_app
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import flask_bcrypt
@@ -500,6 +500,27 @@ def get_client_page():
         logout_user()
         return render_template('login.html', carousel_images=carousel_images, user=current_user), 200
 
+@app.route('/docs')
+def documentos():
+    '''
+    Muestra los documentos disponibles para descarga
+    '''
+    # -- Imágenes del carrusel
+    carousel_images = CarouselImage.query.filter_by(is_active=True).all()
+
+    # -- Directorio de archivos
+    docs_folder = os.path.join(current_app.static_folder, 'docs')
+    file_links = []
+
+    for root, _, files in os.walk(docs_folder):
+        for file in files:
+            if file.endswith(('.pdf', '.docx')):
+                abs_path = os.path.join(root, file)
+                rel_path = os.path.relpath(abs_path, current_app.static_folder)
+                file_links.append(rel_path.replace("\\", "/"))  # rutas web-friendly
+
+    return render_template('docs.html', carousel_images=carousel_images, user=current_user, files=file_links), 200
+
 @app.route('/fincas')
 def fincas():
     # -- Selecccionar las imagenes del carrusel que estan activas para uso
@@ -525,6 +546,8 @@ def contactanos():
         message = request.form.get('message', '').strip()
         ciudad = request.form.get('direccion', '').strip()
         direccion = request.form.get('direccion', '').strip()
+        tipo_reserva = request.form('tipo_reserva', '-').strip()
+        fecha_reserva =datetime.strptime(request.form['fecha_reserva'], '%Y-%m-%d').date()
 
         # Validación simple
         if not full_name or not usermail:
@@ -539,6 +562,8 @@ def contactanos():
             direccion=direccion,
             ciudad=ciudad,
             message=message,
+            tipo_reserva=tipo_reserva,
+            fecha_reserva=fecha_reserva,
         )
 
         db.session.add(consulta)

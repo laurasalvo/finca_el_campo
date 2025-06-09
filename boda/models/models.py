@@ -78,6 +78,8 @@ class Consulta(db.Model):
     message = db.Column(db.Text, nullable=True, comment="Mensaje enviado por el cliente")
     respondida = db.Column(db.Boolean, default=False, comment="Indica si la consulta ha sido respondida")
     admin_response = db.Column(db.Text, default="-", comment="Respuesta del administrador")
+    tipo_reserva = db.Column(db.String(255), default="-", comment="Tipo de Reserva")
+    fecha_reserva = db.Column(db.DateTime, default=datetime.now(timezone.utc), comment="Fecha en que se desea la reserva")
 
     def __repr__(self):
         return f'<Consulta {self.username} - {self.usermail}>'

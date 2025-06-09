@@ -354,8 +354,24 @@
                                 <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12" style="width:100%">
                                     <input class="input" name="phone_number" placeholder="Número Telefónico">
                                 </div>
+                                <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12" style="width:100%">
+                                    <label class="form-label" style="font-weight: bold;">Tipo de Reserva</label>
+                                    <select class="form-select" name="tipo_reserva" placeholder="Tipo de Reserva" title="-" required>
+                                        <option value="boda">Boda</option>
+                                        <option value="bautizo">Bautizo</option>
+                                        <option value="cumpleaños">Cumpleaños</option>
+                                        <option value="aniversario">Aniversario</option>
+                                        <option value="corporativo">Evento Corporativo</option>
+                                        <option value="otros">Reserva Habitación</option>
+                                        <option value="otros">Otros</option>
+                                    </select>
+                                </div>
+                                <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12" style="width:100%">
+                                    <label class="form-label" style="font-weight: bold;">Fecha De Reserva</label>
+                                    <input type="date" class="form-control" placeholder="Fecha De Reservación" name="fecha_reserva" required>
+                                </div>
                                 <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" style="width:100%">
-                                    <textarea aria-placeholder="Escribe aquí tu mensaje" class="textinput" name="message" placeholder="Escribe aquí tu mensaje"></textarea>
+                                    <textarea aria-placeholder="Algún comentario?" class="textinput" name="message" placeholder="Algún comentario?"></textarea>
                                 </div>
                             </div>
                             <button class="submit-btn">
