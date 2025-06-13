@@ -1,0 +1,7 @@
+"id","titulo","descripcion","imagen","precio","disponible"
+2,SUITE VILLA PEPI,Habitación doble con cama King size.,static/images/habitaciones/Habitaciones_0001_9.webp,1700.0,true
+3,HABITACIÓN SANTA EULALIA,Habitación doble con cama de matrimonio.,static/images/habitaciones/Habitaciones_0002_7.webp,1300.0,true
+4,HABITACIÓN DON JOSE,Habitación doble con cama de matrimonio.,static/images/habitaciones/Habitaciones_0003_6.webp,1500.0,true
+5,HABITACIÓN ROSAL,Habitación doble con cama de matrimonio.,static/images/habitaciones/Habitaciones_0004_5.webp,1100.0,true
+6,HABITACIÓN VISITAS,Habitación doble con cama de matrimonio.,static/images/habitaciones/Habitaciones_0005_4.webp,1800.0,true
+1,SUITE NUPCIAL,"Habitación doble, con cama King Size.",static/images/habitaciones/Habitaciones_0000_10.webp,1500.0,true

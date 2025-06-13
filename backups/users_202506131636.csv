@@ -1,0 +1,4 @@
+"id","username","lastname","usermail","phone_number","password_hash","role","birthday","dni","address"
+2,Maria,Alvarez,maria@gmail.com,"8299236045",pbkdf2:sha256:1000000$5gATaQPoPJXbeqEQ$38fe71b64515f1eb904620549adec06d1d5116de05efd64435d88032da9947fc,administrador,2000-05-23,"40220226548","Calle 4ta, La Caleta, Urbanizacion Los Unidos
+Republica Dominicana"
+3,Pedro,Ramon,pedro@gmail.com,"8094568251",pbkdf2:sha256:1000000$5gATaQPoPJXbeqEQ$38fe71b64515f1eb904620549adec06d1d5116de05efd64435d88032da9947fc,cliente,2000-05-23,"40220226549",Avenida Florencio #211
