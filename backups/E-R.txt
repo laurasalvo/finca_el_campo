@@ -1,0 +1,71 @@
+Table USERS {
+  ID int [pk]
+  USERNAME varchar
+  LASTNAME varchar
+  USERMAIL varchar
+  PHONE_NUMBER varchar
+  PASSWORD_HASH varchar
+  ROLE varchar
+  BIRTHDAY date
+  DNI varchar
+  ADDRESS varchar
+}
+
+Table CAROUSEL_IMAGES {
+  ID int [pk]
+  IMAGE_PATH varchar
+  DESCRIPTION varchar
+  IS_ACTIVE boolean
+}
+
+Table CONSULTAS {
+  ID int [pk]
+  USER_ID int [ref: > USERS.ID]
+  FECHA_CREACION datetime
+  MESSAGE text
+  RESPONDIDA boolean
+  ADMIN_RESPONSE text
+  TIPO_RESERVA varchar
+  FECHA_RESERVA datetime
+}
+
+Table LUGARES {
+  ID int [pk]
+  TITULO varchar
+  DESCRIPCION text
+  IMAGEN varchar
+}
+
+Table HABITACIONES {
+  ID int [pk]
+  TITULO varchar
+  DESCRIPCION text
+  IMAGEN varchar
+  PRECIO float
+  DISPONIBLE boolean
+}
+
+Table RESERVAS {
+  ID int [pk]
+  USER_ID int [ref: > USERS.ID]
+  HABITACION_ID int [ref: > HABITACIONES.ID]
+  USERNAME varchar
+  USERMAIL varchar
+  FECHA_ENTRADA date
+  FECHA_SALIDA date
+  FECHA_RESERVA datetime
+  COMPLETADO boolean
+}
+
+Table RESERVAS_EVENTOS {
+  ID int [pk]
+  USER_ID int [ref: > USERS.ID]
+  TIPO_EVENTO varchar
+  FECHA_EVENTO date
+  NUMERO_INVITADOS int
+  LUGAR_ID int [ref: > LUGARES.ID]
+  TANDA varchar
+  MENSAJE text
+  FECHA_RESERVA datetime
+  COMPLETADO boolean
+}
